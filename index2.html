@@ -7,29 +7,31 @@
 <title>臺北市同心華德福實驗教育機構</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 <link href="css/style.css" rel="stylesheet"/></head>
 <body class="theme-isabelle">
+<div id="app">
 <!-- 導航欄 -->
 <nav class="navbar">
 <div class="navbar-container">
 <a class="logo" href="#">同心華德福</a>
-<button class="menu-toggle" id="menuToggle">
+<button class="menu-toggle" id="menuToggle" @click="toggleNav">
 <i class="fas fa-bars"></i>
 </button>
-<ul class="nav-links" id="navLinks">
-<li><a href="#home">首頁</a></li>
-<li><a href="#about">認識同心</a></li>
-<li><a href="#news">最新消息</a></li>
-<li><a href="#admission">申請入學</a></li>
-<li><a href="#faq">常見問題</a></li>
+<ul class="nav-links" id="navLinks" :class="{'active': isNavActive}">
+<li><a href="#home" @click="smoothScroll">首頁</a></li>
+<li><a href="#about" @click="smoothScroll">認識同心</a></li>
+<li><a href="#news" @click="smoothScroll">最新消息</a></li>
+<li><a href="#admission" @click="smoothScroll">申請入學</a></li>
+<li><a href="#faq" @click="smoothScroll">常見問題</a></li>
 <li class="has-submenu">
-    <a href="#curriculum">課程安排 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+    <a href="#curriculum" @click="smoothScroll">課程安排 <i class="fas fa-chevron-down submenu-arrow"></i></a>
     <ul class="submenu">
-        <li><a href="#student-development-section">學生發展圖像</a></li>
+        <li><a href="#student-development-section" @click="smoothScroll">學生發展圖像</a></li>
     </ul>
 </li>
-<li><a href="#teachers">教師團隊</a></li>
+<li><a href="#teachers" @click="smoothScroll">教師團隊</a></li>
 </ul>
 </div>
 </nav>
@@ -37,12 +39,12 @@
 <div class="theme-switcher">
 <h3>選擇設計風格</h3>
 <div class="theme-options">
-<button class="theme-btn active" data-theme="isabelle">Isabelle Simler</button>
-<button class="theme-btn" data-theme="material">Material Design</button>
-<button class="theme-btn" data-theme="neumorphism">Neumorphism</button>
-<button class="theme-btn" data-theme="dark">Dark Mode</button>
-<button class="theme-btn" data-theme="minimalist">Minimalist</button>
-<button class="theme-btn" data-theme="watercolor">Water Color</button>
+<button :class="{'active': activeTheme === 'isabelle'}" @click="switchTheme('isabelle')" data-theme="isabelle">Isabelle Simler</button>
+<button :class="{'active': activeTheme === 'material'}" @click="switchTheme('material')" data-theme="material">Material Design</button>
+<button :class="{'active': activeTheme === 'neumorphism'}" @click="switchTheme('neumorphism')" data-theme="neumorphism">Neumorphism</button>
+<button :class="{'active': activeTheme === 'dark'}" @click="switchTheme('dark')" data-theme="dark">Dark Mode</button>
+<button :class="{'active': activeTheme === 'minimalist'}" @click="switchTheme('minimalist')" data-theme="minimalist">Minimalist</button>
+<button :class="{'active': activeTheme === 'watercolor'}" @click="switchTheme('watercolor')" data-theme="watercolor">Water Color</button>
 </div>
 </div>
 <!-- 主橫幅 -->
@@ -58,31 +60,19 @@
 </section>
 <!-- 認識同心 -->
 <section class="section" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/about-content.html">
-<div class="container" id="about-content-placeholder">
-    <!-- Content will be loaded dynamically here -->
-    <p>Loading "認識同心" content...</p>
-</div>
+<div class="container" :id="`${sectionId}-content-placeholder`" v-html="loadedContent[sectionId]">
 </section>
 <!-- 最新消息 -->
 <section class="section" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/news-content.html">
-<div class="container" id="news-content-placeholder">
-    <!-- Content will be loaded dynamically here -->
-    <p>Loading "最新消息" content...</p>
-</div>
+<div class="container" id="news-content-placeholder" v-html="loadedContent['news']"></div>
 </section>
 <!-- 申請入學 -->
 <section class="section" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/admission-content.html">
-<div class="container" id="admission-content-placeholder">
-    <!-- Content will be loaded dynamically here -->
-    <p>Loading "申請入學" content...</p>
-</div>
+<div class="container" id="admission-content-placeholder" v-html="loadedContent['admission']"></div>
 </section>
 <!-- 常見問題 -->
-<section class="section" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/faq-content.html">
-<div class="container" id="faq-content-placeholder">
-    <!-- Content will be loaded dynamically here -->
-    <p>Loading FAQ content...</p>
-</div>
+<section class="section" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+<FaqSection :faqs="faqData" />
 </section>
 <!-- 課程安排 -->
 <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
@@ -180,10 +170,7 @@
 
 <!-- 學生發展圖像 -->
 <div id="student-development-section" class="container subsection" style="margin-top: 60px;" data-src="content/student-development-content.html">
-    <div class="container" id="student-development-content-placeholder">
-        <!-- Content will be loaded dynamically here -->
-        <p>Loading student development information...</p>
-    </div>
+    <div class="container" id="student-development-content-placeholder" v-html="loadedContent['student-development-section']"></div>
 </div>
 <!-- 教師團隊 -->
 <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
@@ -339,7 +326,7 @@
 </div>
 </footer>
 
-<script src="script.js"></script>
+
 <!-- Modal -->
 <div id="development-modal" class="modal">
     <div class="modal-content">
@@ -349,5 +336,7 @@
         </div>
     </div>
 </div>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
