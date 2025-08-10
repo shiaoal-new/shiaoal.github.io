@@ -1,35 +1,36 @@
-const { ref, onMounted, onUnmounted, reactive } = Vue;
+const { ref, onMounted, onUnmounted, reactive, computed, nextTick } = Vue;
 
-// Import all components
-import { FaqSection, faqData } from './FaqSection.js';
-import { CurriculumSection } from './CurriculumSection.js';
-import { TeachersSection } from './TeachersSection.js';
-import { ChildObservationSection } from './ChildObservationSection.js';
-import { FooterSection } from './FooterSection.js';
-import { AboutSection } from './AboutSection.js';
-import { NewsSection } from './NewsSection.js';
-import { AdmissionSection } from './AdmissionSection.js';
-import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
+// Import sections configuration
+import { sections } from './sectionsConfig.js';
 import { NavBar } from './NavBar.js';
+import { FooterSection } from './FooterSection.js';
+import { faqData } from './FaqSection.js'; // faqData is still needed for FaqSection prop
 
 export const RootApp = {
   components: {
-    FaqSection,
-    CurriculumSection,
-    TeachersSection,
-    ChildObservationSection,
+    NavBar,
     FooterSection,
-    AboutSection,
-    NewsSection,
-    AdmissionSection,
-    StudentDevelopmentSection,
-    NavBar
+    ...sections.reduce((acc, section) => {
+      acc[section.componentName] = section.component;
+      return acc;
+    }, {}),
   },
   setup() {
     const activeTheme = ref('isabelle'); // Reactive state for the active theme
 
     // Reactive object for lazy loading sections
     const sectionLoadedState = reactive({});
+
+    const getSectionStyle = computed(() => (section) => {
+      const style = {};
+      if (section.backgroundImage) {
+        style.backgroundImage = `url('${section.backgroundImage}')`;
+      }
+      if (section.style) {
+        Object.assign(style, section.style);
+      }
+      return style;
+    });
 
     const switchTheme = (theme) => {
       activeTheme.value = theme;
@@ -41,17 +42,38 @@ export const RootApp = {
       event.preventDefault();
       const href = event.currentTarget.getAttribute('href');
       const targetId = href.substring(1);
-      const targetSection = document.getElementById(targetId);
+      let targetSection = document.getElementById(targetId);
 
       if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        const placeholder = document.getElementById(targetId + '-placeholder');
+        if (placeholder) {
+          placeholder.scrollIntoView({ behavior: 'auto', block: 'start' });
 
-        // Close the mobile menu (Bootstrap collapse)
-        const navbarCollapse = document.getElementById('navbarNav');
-        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-          const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
-          bsCollapse.hide();
+          const observer = new MutationObserver((mutationsList, observer) => {
+            for(const mutation of mutationsList) {
+              if (mutation.type === 'childList') {
+                for (const node of mutation.addedNodes) {
+                  if (node.id === targetId) {
+                    node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    observer.disconnect();
+                    return;
+                  }
+                }
+              }
+            }
+          });
+
+          observer.observe(placeholder.parentNode, { childList: true, subtree: true });
         }
+      }
+
+      // Close the mobile menu (Bootstrap collapse)
+      const navbarCollapse = document.getElementById('navbarNav');
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+        const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+        bsCollapse.hide();
       }
     };
 
@@ -83,49 +105,41 @@ export const RootApp = {
       // Initial theme application
       document.body.classList.add(`theme-${activeTheme.value}`);
 
-      // Intersection Observer for fade-in elements
-      const fadeElements = document.querySelectorAll('.fade-in');
-
-      const observerOptions = {
-          root: null, // Use the viewport as the root
-          rootMargin: '0px',
-          threshold: 0.1 // Trigger when 10% of the element is visible
-      };
-
-      const observer = new IntersectionObserver((entries, observer) => {
+      // Intersection Observer for fade-in elements - will be created and used dynamically
+      const fadeInObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
               if (entry.isIntersecting) {
                   entry.target.classList.add('visible');
                   observer.unobserve(entry.target); // Stop observing once visible
               }
           });
-      }, observerOptions);
-
-      fadeElements.forEach(element => {
-          observer.observe(element);
-      });
+      }, { root: null, rootMargin: '0px', threshold: 0.01 });
 
       // Intersection Observer for lazy loading sections
-      const sectionObserverOptions = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.01 // Trigger when even a small part of the section is visible
-      };
-
       const sectionObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
               if (entry.isIntersecting) {
-                  const sectionId = entry.target.id;
+                  const sectionId = entry.target.id.replace('-placeholder', '');
                   sectionLoadedState[sectionId] = true;
                   observer.unobserve(entry.target);
+
+                  nextTick(() => {
+                      const elementToFadeIn = document.getElementById(sectionId);
+                      if (elementToFadeIn && elementToFadeIn.classList.contains('fade-in')) {
+                          fadeInObserver.observe(elementToFadeIn);
+                      }
+                  });
               }
           });
-      }, sectionObserverOptions);
+      }, { root: null, rootMargin: '0px', threshold: 0.01 });
 
-      // Observe each section and initialize loaded state
-      document.querySelectorAll('section[id], div#student-development-section').forEach(section => {
+      // Observe each section placeholder and initialize loaded state
+      sections.forEach(section => {
           sectionLoadedState[section.id] = false; // Initialize to false
-          sectionObserver.observe(section);
+          const placeholder = document.getElementById(section.id + '-placeholder');
+          if (placeholder) {
+            sectionObserver.observe(placeholder);
+          }
       });
 
       // Add scroll event listeners (keep existing ones)
@@ -144,7 +158,9 @@ export const RootApp = {
       switchTheme,
       smoothScroll,
       faqData, // Expose FAQ data to the template
-      sectionLoadedState
+      sectionLoadedState,
+      sections, // Expose sections to the template for v-for
+      getSectionStyle
     };
   },
   template: `
@@ -173,39 +189,20 @@ export const RootApp = {
     <i class="fas fa-chevron-down"></i>
     </div>
     </section>
-    <!-- 認識同心 -->
-    <section class="section py-5 fade-in" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <about-section v-if="sectionLoadedState.about" />
-    </section>
-    <!-- 最新消息 -->
-    <section class="section py-5 fade-in" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <news-section v-if="sectionLoadedState.news" />
-    </section>
-    <!-- 申請入學 -->
-    <section class="section py-5 fade-in" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <admission-section v-if="sectionLoadedState.admission" />
-    </section>
-    <!-- 常見問題 -->
-    <section class="section py-5 fade-in" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <faq-section v-if="sectionLoadedState.faq" :faqs="faqData" />
-    </section>
-    <!-- 課程安排 -->
-    <section class="section fade-in" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <curriculum-section v-if="sectionLoadedState.curriculum" />
-    </section>
 
-    <!-- 學生發展圖像 -->
-    <div id="student-development-section" class="container subsection fade-in" style="margin-top: 60px;">
-        <student-development-section v-if="sectionLoadedState.student-development-section" />
-    </div>
-    <!-- 教師團隊 -->
-    <section class="section fade-in" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <teachers-section v-if="sectionLoadedState.teachers" />
-    </section>
-    <!-- 兒童觀察 -->
-    <section class="section fade-in" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <child-observation-section v-if="sectionLoadedState.child-observation" />
-    </section>
+    <template v-for="section in sections" :key="section.id">
+      <div :id="section.id + '-placeholder'" class="section-placeholder">
+        <component
+          :is="section.componentName"
+          v-if="sectionLoadedState[section.id]"
+          :id="section.id"
+          :class="section.className + (section.isSectionTag ? ' fade-in' : '')"
+          :style="getSectionStyle(section)"
+          :faqs="section.id === 'faq' ? faqData : undefined"
+        />
+      </div>
+    </template>
+
     <!-- 頁腳 -->
     <footer id="footer">
     <footer-section />

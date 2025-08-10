@@ -110,30 +110,32 @@ export const StudentDevelopmentSection = {
     };
   },
   template: `
-    <div class="section-title">
-      <h2>學生發展圖像</h2>
-      <p>從一年級到九年級，孩子的成長與蛻變</p>
-    </div>
-    <div class="development-grid" id="development-cards-container">
-      <div class="development-card" v-for="(data, index) in developmentData" :key="index" @click="openModal(data.title, data.description)">
-        <div class="development-card-img">
-          <img :src="data.img" :alt="data.alt">
-        </div>
-        <div class="development-card-content">
-          <h3>{{ data.title }}</h3>
-          <p><strong>發展狀態：</strong>{{ data.status }}</p>
-          <p><strong>發展任務：</strong>{{ data.task }}</p>
-          <div class="development-card-description" style="display:none;" v-html="data.description"></div>
+    <div>
+      <div class="section-title">
+        <h2>學生發展圖像</h2>
+        <p>從一年級到九年級，孩子的成長與蛻變</p>
+      </div>
+      <div class="development-grid" id="development-cards-container">
+        <div class="development-card" v-for="(data, index) in developmentData" :key="index" @click="openModal(data.title, data.description)">
+          <div class="development-card-img">
+            <img :src="data.img" :alt="data.alt">
+          </div>
+          <div class="development-card-content">
+            <h3>{{ data.title }}</h3>
+            <p><strong>發展狀態：</strong>{{ data.status }}</p>
+            <p><strong>發展任務：</strong>{{ data.task }}</p>
+            <div class="development-card-description" style="display:none;" v-html="data.description"></div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Modal -->
-    <div id="development-modal" class="modal" :style="{ display: showModal ? 'block' : 'none' }" @click.self="closeModal">
-      <div class="modal-content">
-        <span class="close-button" @click="closeModal">&times;</span>
-        <h3 id="modal-title">{{ modalTitle }}</h3>
-        <div id="modal-body" v-html="modalBody"></div>
+      <!-- Modal -->
+      <div id="development-modal" class="modal" :style="{ display: showModal ? 'block' : 'none' }" @click.self="closeModal">
+        <div class="modal-content">
+          <span class="close-button" @click="closeModal">&times;</span>
+          <h3 id="modal-title">{{ modalTitle }}</h3>
+          <div id="modal-body" v-html="modalBody"></div>
+        </div>
       </div>
     </div>
   `
