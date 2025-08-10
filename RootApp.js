@@ -1,4 +1,4 @@
-const { ref, onMounted, onUnmounted } = Vue;
+const { ref, onMounted, onUnmounted, reactive } = Vue;
 
 // Import all components
 import { FaqSection, faqData } from './FaqSection.js';
@@ -28,15 +28,8 @@ export const RootApp = {
   setup() {
     const activeTheme = ref('isabelle'); // Reactive state for the active theme
 
-    // Reactive flags for lazy loading sections
-    const aboutLoaded = ref(false);
-    const newsLoaded = ref(false);
-    const admissionLoaded = ref(false);
-    const faqLoaded = ref(false);
-    const curriculumLoaded = ref(false);
-    const teachersLoaded = ref(false);
-    const childObservationLoaded = ref(false);
-    const studentDevelopmentLoaded = ref(false);
+    // Reactive object for lazy loading sections
+    const sectionLoadedState = reactive({});
 
     const switchTheme = (theme) => {
       activeTheme.value = theme;
@@ -123,39 +116,15 @@ export const RootApp = {
           entries.forEach(entry => {
               if (entry.isIntersecting) {
                   const sectionId = entry.target.id;
-                  switch (sectionId) {
-                      case 'about':
-                          aboutLoaded.value = true;
-                          break;
-                      case 'news':
-                          newsLoaded.value = true;
-                          break;
-                      case 'admission':
-                          admissionLoaded.value = true;
-                          break;
-                      case 'faq':
-                          faqLoaded.value = true;
-                          break;
-                      case 'curriculum':
-                          curriculumLoaded.value = true;
-                          break;
-                      case 'teachers':
-                          teachersLoaded.value = true;
-                          break;
-                      case 'child-observation':
-                          childObservationLoaded.value = true;
-                          break;
-                      case 'student-development-section':
-                          studentDevelopmentLoaded.value = true;
-                          break;
-                  }
+                  sectionLoadedState[sectionId] = true;
                   observer.unobserve(entry.target);
               }
           });
       }, sectionObserverOptions);
 
-      // Observe each section
+      // Observe each section and initialize loaded state
       document.querySelectorAll('section[id], div#student-development-section').forEach(section => {
+          sectionLoadedState[section.id] = false; // Initialize to false
           sectionObserver.observe(section);
       });
 
@@ -175,14 +144,7 @@ export const RootApp = {
       switchTheme,
       smoothScroll,
       faqData, // Expose FAQ data to the template
-      aboutLoaded,
-      newsLoaded,
-      admissionLoaded,
-      faqLoaded,
-      curriculumLoaded,
-      teachersLoaded,
-      childObservationLoaded,
-      studentDevelopmentLoaded
+      sectionLoadedState
     };
   },
   template: `
@@ -213,36 +175,36 @@ export const RootApp = {
     </section>
     <!-- 認識同心 -->
     <section class="section py-5 fade-in" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <about-section v-if="aboutLoaded" />
+      <about-section v-if="sectionLoadedState.about" />
     </section>
     <!-- 最新消息 -->
     <section class="section py-5 fade-in" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <news-section v-if="newsLoaded" />
+      <news-section v-if="sectionLoadedState.news" />
     </section>
     <!-- 申請入學 -->
     <section class="section py-5 fade-in" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <admission-section v-if="admissionLoaded" />
+      <admission-section v-if="sectionLoadedState.admission" />
     </section>
     <!-- 常見問題 -->
     <section class="section py-5 fade-in" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <faq-section v-if="faqLoaded" :faqs="faqData" />
+      <faq-section v-if="sectionLoadedState.faq" :faqs="faqData" />
     </section>
     <!-- 課程安排 -->
     <section class="section fade-in" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <curriculum-section v-if="curriculumLoaded" />
+      <curriculum-section v-if="sectionLoadedState.curriculum" />
     </section>
 
     <!-- 學生發展圖像 -->
     <div id="student-development-section" class="container subsection fade-in" style="margin-top: 60px;">
-        <student-development-section v-if="studentDevelopmentLoaded" />
+        <student-development-section v-if="sectionLoadedState.student-development-section" />
     </div>
     <!-- 教師團隊 -->
     <section class="section fade-in" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <teachers-section v-if="teachersLoaded" />
+      <teachers-section v-if="sectionLoadedState.teachers" />
     </section>
     <!-- 兒童觀察 -->
     <section class="section fade-in" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-      <child-observation-section v-if="childObservationLoaded" />
+      <child-observation-section v-if="sectionLoadedState.child-observation" />
     </section>
     <!-- 頁腳 -->
     <footer id="footer">
