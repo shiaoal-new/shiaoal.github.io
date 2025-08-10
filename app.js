@@ -76,7 +76,6 @@ const FaqSection = {
 const app = createApp({
   setup() {
     const activeTheme = ref('isabelle'); // Reactive state for the active theme
-    const isNavActive = ref(false); // Reactive state for navigation menu active class
     const loadedContent = ref({}); // Stores dynamically loaded HTML content
 
     // FAQ Data (extracted from content/faq-content.html)
@@ -308,10 +307,6 @@ const app = createApp({
       updateChartColors(); // Call the function to update chart colors
     };
 
-    const toggleNav = () => {
-      isNavActive.value = !isNavActive.value;
-    };
-
     const smoothScroll = async (event) => {
       event.preventDefault();
       const href = event.currentTarget.getAttribute('href');
@@ -326,10 +321,12 @@ const app = createApp({
         
         targetSection.scrollIntoView({ behavior: 'smooth' });
 
-        // Delay closing the mobile menu slightly
-        setTimeout(() => {
-          isNavActive.value = false; // Close the mobile menu
-        }, 500); // Adjust delay as needed
+        // Close the mobile menu (Bootstrap collapse)
+        const navbarCollapse = document.getElementById('navbarNav');
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+          const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+          bsCollapse.hide();
+        }
       }
     };
 
@@ -538,8 +535,6 @@ const app = createApp({
     return {
       activeTheme,
       switchTheme,
-      isNavActive,
-      toggleNav,
       smoothScroll,
       loadedContent, // Expose loadedContent to the template
       loadSectionContent, // Expose loadSectionContent if needed for manual triggers
