@@ -1,11 +1,11 @@
 export const CurriculumSection = {
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>課程安排</h2>
         <p>同心華德福的生活節奏與課程特色</p>
       </div>
-      <div class="features fade-in">
+      <div class="features">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-book-open"></i>

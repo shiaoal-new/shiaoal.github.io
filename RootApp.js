@@ -28,6 +28,16 @@ export const RootApp = {
   setup() {
     const activeTheme = ref('isabelle'); // Reactive state for the active theme
 
+    // Reactive flags for lazy loading sections
+    const aboutLoaded = ref(false);
+    const newsLoaded = ref(false);
+    const admissionLoaded = ref(false);
+    const faqLoaded = ref(false);
+    const curriculumLoaded = ref(false);
+    const teachersLoaded = ref(false);
+    const childObservationLoaded = ref(false);
+    const studentDevelopmentLoaded = ref(false);
+
     const switchTheme = (theme) => {
       activeTheme.value = theme;
       document.body.classList.remove('theme-isabelle', 'theme-material', 'theme-neumorphism', 'theme-dark', 'theme-minimalist', 'theme-watercolor');
@@ -102,6 +112,53 @@ export const RootApp = {
           observer.observe(element);
       });
 
+      // Intersection Observer for lazy loading sections
+      const sectionObserverOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.01 // Trigger when even a small part of the section is visible
+      };
+
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const sectionId = entry.target.id;
+                  switch (sectionId) {
+                      case 'about':
+                          aboutLoaded.value = true;
+                          break;
+                      case 'news':
+                          newsLoaded.value = true;
+                          break;
+                      case 'admission':
+                          admissionLoaded.value = true;
+                          break;
+                      case 'faq':
+                          faqLoaded.value = true;
+                          break;
+                      case 'curriculum':
+                          curriculumLoaded.value = true;
+                          break;
+                      case 'teachers':
+                          teachersLoaded.value = true;
+                          break;
+                      case 'child-observation':
+                          childObservationLoaded.value = true;
+                          break;
+                      case 'student-development-section':
+                          studentDevelopmentLoaded.value = true;
+                          break;
+                  }
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, sectionObserverOptions);
+
+      // Observe each section
+      document.querySelectorAll('section[id], div#student-development-section').forEach(section => {
+          sectionObserver.observe(section);
+      });
+
       // Add scroll event listeners (keep existing ones)
       window.addEventListener('scroll', handleNavbarScroll);
       window.addEventListener('scroll', handleParallaxScroll);
@@ -117,7 +174,15 @@ export const RootApp = {
       activeTheme,
       switchTheme,
       smoothScroll,
-      faqData // Expose FAQ data to the template
+      faqData, // Expose FAQ data to the template
+      aboutLoaded,
+      newsLoaded,
+      admissionLoaded,
+      faqLoaded,
+      curriculumLoaded,
+      teachersLoaded,
+      childObservationLoaded,
+      studentDevelopmentLoaded
     };
   },
   template: `
@@ -147,37 +212,37 @@ export const RootApp = {
     </div>
     </section>
     <!-- 認識同心 -->
-    <section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <about-section />
+    <section class="section py-5 fade-in" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <about-section v-if="aboutLoaded" />
     </section>
     <!-- 最新消息 -->
-    <section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <news-section />
+    <section class="section py-5 fade-in" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <news-section v-if="newsLoaded" />
     </section>
     <!-- 申請入學 -->
-    <section class="section py-5" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <admission-section />
+    <section class="section py-5 fade-in" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <admission-section v-if="admissionLoaded" />
     </section>
     <!-- 常見問題 -->
-    <section class="section py-5" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <faq-section :faqs="faqData" />
+    <section class="section py-5 fade-in" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <faq-section v-if="faqLoaded" :faqs="faqData" />
     </section>
     <!-- 課程安排 -->
-    <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <curriculum-section />
+    <section class="section fade-in" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <curriculum-section v-if="curriculumLoaded" />
     </section>
 
     <!-- 學生發展圖像 -->
-    <div id="student-development-section" class="container subsection" style="margin-top: 60px;">
-        <student-development-section />
+    <div id="student-development-section" class="container subsection fade-in" style="margin-top: 60px;">
+        <student-development-section v-if="studentDevelopmentLoaded" />
     </div>
     <!-- 教師團隊 -->
-    <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <teachers-section />
+    <section class="section fade-in" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <teachers-section v-if="teachersLoaded" />
     </section>
     <!-- 兒童觀察 -->
-    <section class="section" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <child-observation-section />
+    <section class="section fade-in" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+      <child-observation-section v-if="childObservationLoaded" />
     </section>
     <!-- 頁腳 -->
     <footer id="footer">

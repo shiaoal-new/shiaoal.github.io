@@ -1,11 +1,11 @@
 export const TeachersSection = {
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>教師團隊</h2>
         <p>同心華德福的專業教育團隊</p>
       </div>
-      <div class="teachers fade-in">
+      <div class="teachers">
         <div class="teacher-card">
           <div class="teacher-img">
             <i class="fas fa-user-tie"></i>

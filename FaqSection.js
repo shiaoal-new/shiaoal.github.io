@@ -56,11 +56,11 @@ export const FaqSection = {
   },
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>常見問答</h2>
         <p>關於同心華德福教育理念與實踐的問答集</p>
       </div>
-      <div class="faq-container fade-in">
+      <div class="faq-container">
         <FaqItem
           v-for="(faq, index) in faqs"
           :key="index"

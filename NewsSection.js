@@ -1,11 +1,11 @@
 export const NewsSection = {
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>最新消息</h2>
         <p>掌握同心華德福的最新動態與重要公告</p>
       </div>
-      <div class="news-list fade-in">
+      <div class="news-list">
         <div class="news-item">
           <div class="news-date">
             <i class="fas fa-bullhorn"></i>

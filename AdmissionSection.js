@@ -1,11 +1,11 @@
 export const AdmissionSection = {
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>申請入學流程</h2>
         <p>加入同心華德福，開啟孩子的全人教育之旅</p>
       </div>
-      <div class="admission-flowchart fade-in">
+      <div class="admission-flowchart">
         <div class="flow-step">
           <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
           <h3>1. 參加說明會</h3>

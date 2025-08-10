@@ -1,11 +1,11 @@
 export const AboutSection = {
   template: `
     <div class="container">
-      <div class="section-title fade-in">
+      <div class="section-title">
         <h2>認識同心</h2>
         <p>我們是一群，透過華德福教育，設計讓教育之美，社會改革的先鋒。在同心這個家，我們不需要創造奇蹟，因為它無所不在。每個孩子都是一個謎，需要從不同的線索來遇見他。</p>
       </div>
-      <div class="features fade-in">
+      <div class="features">
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-seedling"></i>

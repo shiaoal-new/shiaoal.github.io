@@ -110,11 +110,11 @@ export const StudentDevelopmentSection = {
     };
   },
   template: `
-    <div class="section-title fade-in">
+    <div class="section-title">
       <h2>學生發展圖像</h2>
       <p>從一年級到九年級，孩子的成長與蛻變</p>
     </div>
-    <div class="development-grid fade-in" id="development-cards-container">
+    <div class="development-grid" id="development-cards-container">
       <div class="development-card" v-for="(data, index) in developmentData" :key="index" @click="openModal(data.title, data.description)">
         <div class="development-card-img">
           <img :src="data.img" :alt="data.alt">
