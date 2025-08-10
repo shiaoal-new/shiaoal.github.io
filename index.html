@@ -14,31 +14,7 @@
 <body class="theme-isabelle">
 <div id="app">
 <!-- 導航欄 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<div class="container-fluid">
-<a class="navbar-brand" href="#">同心華德福</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" href="#home" @click="smoothScroll">首頁</a></li>
-<li class="nav-item"><a class="nav-link" href="#about" @click="smoothScroll">認識同心</a></li>
-<li class="nav-item"><a class="nav-link" href="#news" @click="smoothScroll">最新消息</a></li>
-<li class="nav-item"><a class="nav-link" href="#admission" @click="smoothScroll">申請入學</a></li>
-<li class="nav-item"><a class="nav-link" href="#faq" @click="smoothScroll">常見問題</a></li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">課程安排</a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <li><a class="dropdown-item" href="#curriculum" @click="smoothScroll">課程安排</a></li>
-        <li><a class="dropdown-item" href="#student-development-section" @click="smoothScroll">學生發展圖像</a></li>
-    </ul>
-</li>
-<li class="nav-item"><a class="nav-link" href="#teachers" @click="smoothScroll">教師團隊</a></li>
-</ul>
-</div>
-</div>
-</nav>
+<nav-bar :smoothScroll="smoothScroll" />
 <!-- 風格切換器 -->
 <div class="theme-switcher">
 <h3>選擇設計風格</h3>
@@ -62,276 +38,38 @@
 <i class="fas fa-chevron-down"></i>
 </div>
 </section>
-<!-- 認識同心 -->
-<section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/about-content.html">
-<div class="container px-4" :id="`${sectionId}-content-placeholder`" v-html="loadedContent[sectionId]">
+<!-- All other sections commented out for debugging -->
+<!--
+<section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+<about-section />
 </section>
-<!-- 最新消息 -->
-<section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/news-content.html">
-<div class="container px-4" id="news-content-placeholder" v-html="loadedContent['news']"></div>
+<section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+<news-section />
 </section>
-<!-- 申請入學 -->
-<section class="section py-5" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/admission-content.html">
-<div class="container px-4" id="admission-content-placeholder" v-html="loadedContent['admission']"></div>
+<section class="section py-5" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+<admission-section />
 </section>
-<!-- 常見問題 -->
 <section class="section py-5" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<FaqSection :faqs="faqData" />
+<faq-section :faqs="faqData" />
 </section>
-<!-- 課程安排 -->
 <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>課程安排</h2>
-<p>同心華德福的生活節奏與課程特色</p>
-</div>
-<div class="features fade-in">
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-book-open"></i>
-</div>
-<h3>週期循環主課程</h3>
-<p>包括語文、數學、自然科學、社會（歷史、地理）等科目。</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-palette"></i>
-</div>
-<h3>副課程</h3>
-<p>手工、藝術、外語、寫生、農藝、泥塑、木工、音樂、體育活動等。由專業教師帶領，於每週或隔週固定時段上課，豐富孩子的學習體驗。</p>
-</div>
-</div>
-<h3 style="text-align: center; margin: 40px 0 20px; color: var(--primary-color);">各年級上下課作息時間表</h3>
-<div class="table-container" style="overflow-x: auto;">
-<table class="schedule-table">
-<thead>
-<tr>
-<th><i class="fas fa-clock"></i> 星期</th>
-<th>一年級</th>
-<th>二年級</th>
-<th>三年級</th>
-<th>四年級</th>
-<th>五年級</th>
-<th>六年級</th>
-<th>七到九年級</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>星期一</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期二</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期三</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期四</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>-</td>
-</tr>
-<tr>
-<td>星期五</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<curriculum-section />
+</section>
 
-<!-- 學生發展圖像 -->
-<div id="student-development-section" class="container subsection" style="margin-top: 60px;" data-src="content/student-development-content.html">
-    <div class="container" id="student-development-content-placeholder" v-html="loadedContent['student-development-section']"></div>
+<div id="student-development-section" class="container subsection" style="margin-top: 60px;">
+    <student-development-section />
 </div>
-<!-- 教師團隊 -->
 <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>教師團隊</h2>
-<p>同心華德福的專業教育團隊</p>
-</div>
-<div class="teachers fade-in">
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-user-tie"></i>
-</div>
-<div class="teacher-info">
-<h3>鄭同僚</h3>
-<p>協會顧問</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-user-tie"></i>
-</div>
-<div class="teacher-info">
-<h3>詹雅智</h3>
-<p>執行長</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-user-tie"></i>
-</div>
-<div class="teacher-info">
-<h3>何宜儀</h3>
-<p>理事長</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-chalkboard-teacher"></i>
-</div>
-<div class="teacher-info">
-<h3>黃郁容</h3>
-<p>教師會主席・G2導師</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-chalkboard-teacher"></i>
-</div>
-<div class="teacher-info">
-<h3>吳俊輝</h3>
-<p>總務兼行政主任</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-chalkboard-teacher"></i>
-</div>
-<div class="teacher-info">
-<h3>廖容</h3>
-<p>教學</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-chalkboard-teacher"></i>
-</div>
-<div class="teacher-info">
-<h3>董品喬</h3>
-<p>註冊</p>
-</div>
-</div>
-<div class="teacher-card">
-<div class="teacher-img">
-<i class="fas fa-chalkboard-teacher"></i>
-</div>
-<div class="teacher-info">
-<h3>曾本瑜</h3>
-<p>會計行政</p>
-</div>
-</div>
-</div>
-</div>
+<teachers-section />
 </section>
-<!-- 兒童觀察 -->
 <section class="section" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2><i class="fas fa-eye"></i> 透過兒童觀察：理解與支持</h2>
-<p>在同心華德福，我們深信每個孩子都是獨特的個體。透過細膩的兒童觀察，我們能更深入地理解孩子的內在世界、發展需求與學習風格，從而提供最適切的引導與支持。</p>
-</div>
-<div class="observation-flowchart fade-in">
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-binoculars"></i></div>
-<h3>1. 觀察</h3>
-<p>教師在日常教學與活動中，細心觀察孩子的行為、互動與反應。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-file-alt"></i></div>
-<h3>2. 記錄</h3>
-<p>將觀察所得的客觀事實與細節，有系統地記錄下來。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-brain"></i></div>
-<h3>3. 反思</h3>
-<p>教師團隊共同研討與反思觀察記錄，探討孩子行為背後的需求與意義。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
-<h3>4. 計劃</h3>
-<p>基於對孩子的理解，共同制定個別化的教學策略與支持方案。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-hand-holding-heart"></i></div>
-<h3>5. 行動</h3>
-<p>將計劃付諸實踐，並持續觀察其成效，形成良性循環。</p>
-</div>
-</div>
-</div>
+<child-observation-section />
 </section>
-<!-- 頁腳 -->
-<footer>
-<div class="footer-content">
-<div class="footer-column">
-<h3><i class="fas fa-school"></i> 關於同心</h3>
-<p>臺北市同心華德福實驗教育機構致力於提供全人教育，培養孩子成為獨立自主、充滿創造力的個體。</p>
-<div class="social-links">
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
-</div>
-</div>
-<div class="footer-column">
-<h3><i class="fas fa-address-book"></i> 聯絡我們</h3>
-<p><i class="fas fa-map-marker-alt"></i> 116臺北市文山區試院路2號</p>
-<p><i class="fas fa-phone"></i> 02-2236-6791</p>
-<p><i class="fas fa-envelope"></i> tx@tongxin-waldorf.org</p>
-</div>
-<div class="footer-column">
-<h3><i class="fas fa-link"></i> 快速連結</h3>
-<p><a href="#admission"><i class="fas fa-angle-right"></i> 申請入學</a></p>
-<p><a href="#curriculum"><i class="fas fa-angle-right"></i> 課程安排</a></p>
-<p><a href="#faq"><i class="fas fa-angle-right"></i> 常見問題</a></p>
-<p><a href="#teachers"><i class="fas fa-angle-right"></i> 教師團隊</a></p>
-</div>
-</div>
-<div class="copyright">
-<p>© 2023 臺北市同心華德福實驗教育機構. 版權所有.</p>
-</div>
+<footer id="footer">
+<footer-section />
 </footer>
 
 
-<!-- Modal -->
 <div id="development-modal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -340,8 +78,9 @@
         </div>
     </div>
 </div>
+-->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="app.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
