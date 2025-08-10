@@ -6,425 +6,77 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>臺北市同心華德福實驗教育機構</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 <link href="css/style.css" rel="stylesheet"/></head>
 <body class="theme-isabelle">
+<div id="app">
 <!-- 導航欄 -->
-<nav class="navbar">
-<div class="navbar-container">
-<a class="logo" href="#">同心華德福</a>
-<button class="menu-toggle" id="menuToggle">
-<i class="fas fa-bars"></i>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container-fluid">
+<a class="navbar-brand" href="#">同心華德福</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
 </button>
-<ul class="nav-links" id="navLinks">
-<li><a href="#home">首頁</a></li>
-<li><a href="#about">認識同心</a></li>
-<li><a href="#news">最新消息</a></li>
-<li><a href="#admission">申請入學</a></li>
-<li><a href="#faq">常見問題</a></li>
-<li class="has-submenu">
-    <a href="#curriculum">課程安排 <i class="fas fa-chevron-down submenu-arrow"></i></a>
-    <ul class="submenu">
-        <li><a href="#student-development-section">學生發展圖像</a></li>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="#home" @click="smoothScroll">首頁</a></li>
+<li class="nav-item"><a class="nav-link" href="#about" @click="smoothScroll">認識同心</a></li>
+<li class="nav-item"><a class="nav-link" href="#news" @click="smoothScroll">最新消息</a></li>
+<li class="nav-item"><a class="nav-link" href="#admission" @click="smoothScroll">申請入學</a></li>
+<li class="nav-item"><a class="nav-link" href="#faq" @click="smoothScroll">常見問題</a></li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">課程安排</a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <li><a class="dropdown-item" href="#curriculum" @click="smoothScroll">課程安排</a></li>
+        <li><a class="dropdown-item" href="#student-development-section" @click="smoothScroll">學生發展圖像</a></li>
     </ul>
 </li>
-<li><a href="#teachers">教師團隊</a></li>
+<li class="nav-item"><a class="nav-link" href="#teachers" @click="smoothScroll">教師團隊</a></li>
 </ul>
+</div>
 </div>
 </nav>
 <!-- 風格切換器 -->
 <div class="theme-switcher">
 <h3>選擇設計風格</h3>
 <div class="theme-options">
-<button class="theme-btn active" data-theme="isabelle">Isabelle Simler</button>
-<button class="theme-btn" data-theme="material">Material Design</button>
-<button class="theme-btn" data-theme="neumorphism">Neumorphism</button>
-<button class="theme-btn" data-theme="dark">Dark Mode</button>
-<button class="theme-btn" data-theme="minimalist">Minimalist</button>
-<button class="theme-btn" data-theme="watercolor">Water Color</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'isabelle'}]" @click="switchTheme('isabelle')" data-theme="isabelle">Isabelle Simler</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'material'}]" @click="switchTheme('material')" data-theme="material">Material Design</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'neumorphism'}]" @click="switchTheme('neumorphism')" data-theme="neumorphism">Neumorphism</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'dark'}]" @click="switchTheme('dark')" data-theme="dark">Dark Mode</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'minimalist'}]" @click="switchTheme('minimalist')" data-theme="minimalist">Minimalist</button>
+<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'watercolor'}]" @click="switchTheme('watercolor')" data-theme="watercolor">Water Color</button>
 </div>
 </div>
 <!-- 主橫幅 -->
 <section class="hero" id="home" data-parallax="scroll">
-<div class="hero-content">
+<div class="hero-content text-center">
 <h1>同心華德福實驗教育機構</h1>
-<p>從幼兒園到高中，您是否也在找尋教育孩子們的不同路徑？邀請您，成為同心的夥伴！</p>
-<a class="btn" href="#about">認識我們</a>
+<p class="lead">從幼兒園到高中，您是否也在找尋教育孩子們的不同路徑？邀請您，成為同心的夥伴！</p>
+<a class="btn btn-primary btn-lg" href="#about">認識我們</a>
 </div>
 <div class="scroll-indicator">
 <i class="fas fa-chevron-down"></i>
 </div>
 </section>
 <!-- 認識同心 -->
-<section class="section" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>認識同心</h2>
-<p>我們是一群，透過華德福教育，設計讓教育之美，社會改革的先鋒。在同心這個家，我們不需要創造奇蹟，因為它無所不在。每個孩子都是一個謎，需要從不同的線索來遇見他。</p>
-</div>
-<div class="features fade-in">
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-seedling"></i>
-</div>
-<h3>自然教育</h3>
-<p>透過農耕與建築的課程找到內在與世界連結的安全感，讓孩子在自然中學習與成長。</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-theater-masks"></i>
-</div>
-<h3>戲劇藝術</h3>
-<p>六年級戲劇公演像是見證孩子成長的一場儀式，建立「個人自信」與「珍貴的同窗情誼」。</p>
-</div>
-<div class="feature-card">
-<div class="feature-icon">
-<i class="fas fa-brain"></i>
-</div>
-<h3>全人發展</h3>
-<p>符應孩子的身心發展階段，期盼能使孩子成為如其所是的人，培養健全、獨立、自主的人格。</p>
-</div>
-</div>
-</div>
+<section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/about-content.html">
+<div class="container px-4" :id="`${sectionId}-content-placeholder`" v-html="loadedContent[sectionId]">
 </section>
 <!-- 最新消息 -->
-<section class="section" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>最新消息</h2>
-<p>掌握同心華德福的最新動態與重要公告</p>
-</div>
-<div class="news-list fade-in">
-<div class="news-item">
-<div class="news-date">
-<i class="fas fa-bullhorn"></i>
-<span>重要</span>
-</div>
-<div class="news-content">
-<h3>家長接送臨停特別注意事項</h3>
-<p>近一年來由於1999、教育局和實驗教育中心一直不斷接獲學校周邊民眾投訴，表示上放學期間家長汽車違停在試院路上等待接送孩子的問題，「已嚴重影響用路人視線造成民眾困擾」。</p>
-</div>
-</div>
-<div class="news-item">
-<div class="news-date">
-<i class="fas fa-user-plus"></i>
-<span>徵才</span>
-</div>
-<div class="news-content">
-<h3>【最新徵人訊息】同心華德福實驗教育機構 徵【中學理科教師】</h3>
-<p>在華德福教育裡，理科不只是公式與定律，而是理解世界的橋樑。擅長教授基礎自然、物理、化學或生物概念，能設計實驗、觀察與生活連結的教學。</p>
-</div>
-</div>
-<div class="news-item">
-<div class="news-date">
-<i class="fas fa-child-reaching"></i>
-<span>招生</span>
-</div>
-<div class="news-content">
-<h3>114學年 小一與七年級新生入學說明會已結束</h3>
-<p>七年級新生收件截止日為114/4/28，欲申請入學請完整填寫線上表單與入學申請書。</p>
-</div>
-</div>
-</div>
-</div>
+<section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/news-content.html">
+<div class="container px-4" id="news-content-placeholder" v-html="loadedContent['news']"></div>
 </section>
 <!-- 申請入學 -->
-<section class="section" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>申請入學流程</h2>
-<p>加入同心華德福，開啟孩子的全人教育之旅</p>
-</div>
-<div class="admission-flowchart fade-in">
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
-<h3>1. 參加說明會</h3>
-<p>了解我們的教育理念與環境。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-file-alt"></i></div>
-<h3>2. 提交申請書</h3>
-<p>下載並填寫申請文件。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-comments"></i></div>
-<h3>3. 親師面談</h3>
-<p>與家長和孩子進行深入溝通。</p>
-</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-step">
-<div class="feature-icon"><i class="fas fa-school"></i></div>
-<h3>4. 入學/試讀</h3>
-<p>新生正式入學，轉學生入班體驗。</p>
-</div>
-</div>
-<div class="cta-container" style="text-align: center; margin-top: 40px;">
-<a class="btn" href="#"><i class="fas fa-download"></i> 下載入學申請書</a>
-<a class="btn" href="#" style="margin-left: 15px;"><i class="fas fa-pen-to-square"></i> 線上填寫申請表</a>
-</div>
-</div>
+<section class="section py-5" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');" data-src="content/admission-content.html">
+<div class="container px-4" id="admission-content-placeholder" v-html="loadedContent['admission']"></div>
 </section>
 <!-- 常見問題 -->
-<section class="section" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-<div class="container">
-<div class="section-title fade-in">
-<h2>常見問答</h2>
-<p>關於同心華德福教育理念與實踐的問答集</p>
-</div>
-<div class="faq-container fade-in">
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 1. 如何看待孩子／一個人？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>在同心這個家，我們不需要創造奇蹟，因為它無所不在。</p>
-            <p>每個孩子來到我們面前，都是兩個豐盛的相遇</p>
-            <p>每個孩子都是一個謎，需要從不同的線索來遇見他</p>
-            <p>孩子也是我們的一面鏡子，看見孩子的行為表徵，同時也內觀自己的不足之處</p>
-            <p>透過兒童觀察</p>
-            <p>我們將從孩子的五官特徵、身體表現、人格特質、四種氣質（風火水土）、十二感官</p>
-            <p>以及意志／情感／思考等各種面向來對孩子有更多的瞭解與認識。</p>
-            <p>符應孩子的身心發展階段，期盼能使孩子成為如其所是的人。</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 2. 同心的教學方法？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>順應孩子每個階段的發展任務</p>
-            <p>給予深化連結的課程活動與故事</p>
-            <p>符應人智學的教與思維脈絡</p>
-            <p>7-14歲的孩子最主要的發展是發展「情感」面向的學習。</p>
-            <p>7-8歲在情感中鍛鍊意志，透過親身感官接觸與自然相處，</p>
-            <p>以及在生活中練習工作規律與秩序，孩子建立動手做的能力</p>
-            <p>9歲的孩子透過農耕與建築的課程找到內在與世界連結的安全感</p>
-            <p>10歲的孩子走出校園探訪地方社區，帶著內在旺盛的生命力開始向外探索</p>
-            <p>11歲的孩子身心達到和諧平衡的狀態</p>
-            <p>植物學的課程開啟了第一堂客觀的科學課入門</p>
-            <p>語文言文則的人類發展說寫讀讓孩子的語感長出豐沛的力量</p>
-            <p>藝術美勞課程會參孩子力與美的展現</p>
-            <p>12歲之後逐漸個人情感中的思維</p>
-            <p>科學、天文學、地理等課程這次帶領孩子運用感官「客觀」觀察自然的運行</p>
-            <p>進入探索宇宙與牠的學說旅程，延續連結中學的課程</p>
-            <p>跟身經驗、感官觀察、故事圖像的教學方法</p>
-            <p>體驗式捲疊每一個學習階段的發展能力</p>
-            <p>孩子內在習得的不只是知識而是生命的感受與經驗反芻後的記憶</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 3. 聽說華德福的孩子都在玩，玩得出什麼學問嗎？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>孩子在戶外體驗中學到的不只是技能與知識</p>
-            <p>更透過外在的探索發現內在心靈的各個面向</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 4. 同心華德福的生活節奏以及課程特色？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>同心的生活節奏如下：</p>
-            <h3>週期循環主課程</h3>
-            <p>包括語文、數學、自然科學、社會（歷史、地理）等科目。</p>
-            <p>每天上午 8:20-10:20 進行120分鐘教學，</p>
-            <p>連續二到四週，教學貼周而復始地進行。</p>
-            <ul>
-                <li>小學階段由主帶教師負責主課程。</li>
-                <li>中學階段將依主課科目，由專職教師授課。</li>
-            </ul>
-            <h3>副課程</h3>
-            <p>手工、藝術、外語、寫生、農藝、泥塑、音樂、</p>
-            <p>木工、音樂、體育活動等，每週或隔週固定時段上課。</p>
-            <p>由該科目的專業教師帶領課程</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 5. 孩子的學習表現？能力如何評量？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>如何了解孩子的能力與學習狀態？</p>
-            <p>在華德福教育當中，我們著重兩個面向的發展。</p>
-            <p>一是生理發展，其二是心理與認知發展。</p>
-            <p>透過每天的晨圈活動及動態性課程，教師訓練孩子的身體協調性，及觀察所有感官的發展。</p>
-            <p>從一到九年級，透過工作本記錄孩子每天的學習。</p>
-            <p>教師及家長便能從孩子的工作本了解孩子的每日學習進程。</p>
-            <p>每日的活動過程當中，教師設計相關的教學活動，以瞭解孩子學科的學習狀態。</p>
-            <p>五年級起，由於孩子抽象思考能力的發展，課程中則會增添部分紙筆測驗。</p>
-            <p>每學期至少安排一次親師面談</p>
-            <p>面談過程當中會一同閱讀孩子的工作本，瞭解孩子在學校學習狀態。</p>
-            <p>另外，學期結束也將提供家長一份孩子個別的學習質性評量，給予孩子發展狀態，和各學科學習能力的描述。</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 6. 未來轉銜的可能性</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>華德福教育有別人花魁的發展圖像</p>
-            <p>從幼兒園到高中</p>
-            <p>我們期待培養出健全、獨立、自主的人</p>
-            <p>華德福教育有別人完整的發展圖像，從幼兒園到高中。我們期待培養出健全、獨立、自主的人</p>
-            <p>華德福教育（含實驗教育）的目標是培養人的整體發展，期盼能發展出人的主動、能動、能從眾與能共好</p>
-            <p>是一群，透過華德福教育，設計讓教育之美，社會改革的先鋒</p>
-            <p>同心截至108學年度，學校第七年級到九年級。我們同樣有從幼兒園到高中的辦學圖像</p>
-            <p>在還沒有高中部之前，九年級的畢業生也能夠依據對自己的瞭解</p>
-            <p>選擇符合與各式升學管道（包括華德福高中、特色獨招等）</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 7. 華德福學校畢業生的發展？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>同心的畢業生都有華德福學校的畢業證書，同心也會給每個畢業生屬於同心華德福的畢業證書</p>
-            <p>從過去的經驗觀察到，華德福學校畢業後的孩子能夠獨當一面，自主自立，同時積極參與社會裡</p>
-            <p>根據社會企業的需求而來</p>
-            <p>企業親睞的人才，人品佳、能獨立解決問題、能團隊合作是其核心的三項能力</p>
-            <p>以此來看，華德福學校的畢業生在各行各業都是充滿競爭力的</p>
-            <p>除此之外，華德福學校依然充滿身心平衡的行為</p>
-            <p>畢業生在其生命自然之下，也踏實務實、美、勇敢在自己的生命核心中</p>
-            <p>帶著這個核心，從華德福學校的畢業生無論在各行各業都能夠完成自我，綻放出獨特的樣貌。</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 8. 華德福老師的特質？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>「我們相信孩子的能力成為「人」才，唯有出自真正的人。</p>
-            <p>我們的華德福教育從來不只學科知識上的，孩子無時無刻也都是學習著教師的人品、人格）</p>
-            <p>因此我們期許自己能抱持一顆無愧於孩子的心，願意成為能引導孩子仿效的鏡像，發自心靈平穩的成人</p>
-            <ul>
-                <li>對孩子有愛心與耐心，仁慈、寬厚，願意主動關懷且無差別地對待每一個孩子</li>
-            </ul>
-            <p>並能深度理解每位孩子的發展及需求，與孩子真實地相處。</p>
-            <ul>
-                <li>三、教師必須勇於探索，嘗試適合孩子的教育與引導，持續自我精進，主動參與華德福師資進修與課程</li>
-            </ul>
-            <p>願真實地應對自身不足之處，自我檢視與勇敢約束，不害怕犯錯。</p>
-            <p>最重要的是在孩子面前也能夠承認並修正自己的錯誤</p>
-            <p>因為我們相信孩子不會只在當中看到失敗，而是會看到教師如何在跌倒中站起來</p>
-            <p>在過新中修正與鍛鍊，在困境中成長！</p>
-            <p>這才是人之所以為人的關鍵能力，也是華德福教師任華德福教師的核心狀態</p>
-            <ul>
-                <li>四、能與學生同心協力、搭檔，身體力行</li>
-            </ul>
-            <p>一齊為創造孩子們的偉大目標，營造身心靈健全成長的環境為其共同努力之目標。</p>
-            <ul>
-                <li>五、能主動關懷每一個個案，願意以愛為出發點</li>
-            </ul>
-            <p>嘗試各種家長溝通的可能性，並引導家長對於華德福教育及孩子的發展有更深入的了解。</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 9. 同心華德福的日常作息、課後照顧的規劃？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <h3>各年級上下課作息時間表</h3>
-            <table class="schedule-table">
-<thead>
-<tr>
-<th>星期</th>
-<th>一年級</th>
-<th>二年級</th>
-<th>三年級</th>
-<th>四年級</th>
-<th>五年級</th>
-<th>六年級</th>
-<th>七到九年級</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>星期一</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期二</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期三</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-16:00</td>
-</tr>
-<tr>
-<td>星期四</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td></td>
-</tr>
-<tr>
-<td>星期五</td>
-<td>8:10-14:00</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td>8:10-15:40</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-            <p>課後安親將依每學期開班公告。</p>
-        </div>
-    </div>
-    <div class="faq-card">
-        <div class="faq-question">
-            <span><i class="fas fa-question-circle"></i> 10. 同心的學費？</span>
-            <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-card-answer">
-            <p>本機構為非營利組織，可用經費並不充裕。</p>
-            <p>每位學生所繳交之費用（學費與雜費）皆為辦學所需。</p>
-            <p>小學部學費為每學期75,000元，中學部為85,000元。</p>
-            <p>午餐費目前為每餐90元，將視物價狀況酌以調整。</p>
-            <p>若家長們想幫孩子申請就讀同心，需參加招生入學說明會</p>
-            <p>再從同心官網下載入學簡章申請書，以電腦繕打或手寫方式完成後</p>
-            <p>繳交至同心華德福實驗教育機構。</p>
-            <p>若有任何疑問，歡迎來電洽詢或Email聯繫。</p>
-        </div>
-    </div>
-</div>
-</div>
+<section class="section py-5" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+<FaqSection :faqs="faqData" />
 </section>
 <!-- 課程安排 -->
 <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
@@ -435,12 +87,16 @@
 </div>
 <div class="features fade-in">
 <div class="feature-card">
-<div class="feature-icon"><i class="fas fa-book-open"></i></div>
+<div class="feature-icon">
+<i class="fas fa-book-open"></i>
+</div>
 <h3>週期循環主課程</h3>
 <p>包括語文、數學、自然科學、社會（歷史、地理）等科目。</p>
 </div>
 <div class="feature-card">
-<div class="feature-icon"><i class="fas fa-palette"></i></div>
+<div class="feature-icon">
+<i class="fas fa-palette"></i>
+</div>
 <h3>副課程</h3>
 <p>手工、藝術、外語、寫生、農藝、泥塑、木工、音樂、體育活動等。由專業教師帶領，於每週或隔週固定時段上課，豐富孩子的學習體驗。</p>
 </div>
@@ -517,141 +173,9 @@
 </div>
 
 <!-- 學生發展圖像 -->
-<div id="student-development-section" class="container subsection" style="margin-top: 60px;">
-    <div class="section-title fade-in">
-        <h2>學生發展圖像</h2>
-        <p>從一年級到九年級，孩子的成長與蛻變</p>
-    </div>
-    <div class="development-grid fade-in">
-        <!-- Grade 1 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh4.googleusercontent.com/QAD86veFMJxDg00G94uwr9BrjbZd90piqLgr0Ur_EHLG41hefD3kh_tnpgmhMmTGoE7_axuYpGzEkO7LHKYlFnGCbIEsd4KrggXQwm8RZuejnppTdkhNpwFwaZzK5weE4WOE8OKkddxptU9Pm_iTn3BYbuvojvaAMxmQgev60UrCMu8=w1280" alt="一年級">
-            </div>
-            <div class="development-card-content">
-                <h3>一年級</h3>
-                <p><strong>發展狀態：</strong>情感中的意志</p>
-                <p><strong>發展任務：</strong>整體</p>
-                <div class="development-card-description">
-                    <p>在第一個七年，孩子學習熟悉身體、發展空間的方向感和養成身體直立、說話和思考的基本發展能力。孩子所處的環境狀態就是他的學習情境。如：孩子所模仿的大人、所處的環境媒介作用等。</p><p>模仿的作用足以把他所學的銘印在孩子的意志中。在幼稚園，經驗性的學習、玩、和同伴及老師們的密集社會接觸中的發現等等，構成幼兒教育的基調。經由非正式的遊戲和社會接觸，明瞭母語和數字的複雜性，但這些都還不是啟蒙教育。</p><p>在第七年左右，是幼稚園到小學的銜接階段。此時期的孩子在身體的成長發育上進入最堅硬的部分－－換牙階段。他們在生長發vy上已具足了足夠的生命力，因此開始跨越建構內在肉體的任務，轉而向外在世界開展。這是孩子開始學習認知的適當時機。</p><p>在意識上，他們仍處於夢幻中，因此一年級的授課重點不在多，而是讓孩子透過遊戲、肢體活動、模仿，給孩子較寬闊、與其現階段生命相呼應的醒知；同時養成良好的班級生活習慣，培養對自然、生命、環境的尊重，以及對外在世界的興趣，這些都將成為未來人格發展很重要的學習過程。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 2 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh5.googleusercontent.com/dvHlxhLjPuXA6fVtIvpUewgo16vE7dLQDlH_c5G-P9hkVOXqwvHbI1XEGA8NTRv6uBSKWmDtVfPSK0i6fZacLJpzr6URBkn7iX2qb7K2aO1we-y_AbensUfyFpicgvkSqhnZH5zVBD7w5SvoM5cWDaSQlpOnfuUQqC33vMH-C0Hf678=w1280" alt="二年級">
-            </div>
-            <div class="development-card-content">
-                <h3>二年級</h3>
-                <p><strong>發展狀態：</strong>情感中的意志</p>
-                <p><strong>發展任務：</strong>二元</p>
-                <div class="development-card-description">
-                    <p>八歲的孩子繼續生活在一個巨大、自我創造的心理景象中。這種景象是孩子從內在的生命實體，發展個人思考圖像的天賦所得到的。與外在世界接觸的經驗會被孩子的想像所過濾，並依據孩子心中的原有圖像而重組。</p><p>在這個年紀，孩子展現更大的警覺，去留意周圍所發生的事。整體的心境分化成一些顯著的對立。例如：對宗教元素有較深入較有意識的感覺，但卻伴隨著對淘氣的吸引力之覺醒。</p><p>這個年紀的課程內容，讓孩子培養對呼吸的感覺，以及感受語言情感的豐富性。可理解地，孩子所熟悉的學習情境中，圖像思考仍居於很重要的地位。會移動、有生命之類的概念，最適合孩子做有意義的概念認識。經由大肢體動作和精細小動作，孩子繼續熟稔基礎的語文、數學。不管是跳躍、投接球、編織或吹笛子等，他們正在發展一些從一年級就開始學習的各種技巧和能力。因此，經由藝術的途徑，孩子的意識已經能夠被喚醒。</p><p>在二年級的學童中，恆齒繼續長高，側面的臼齒和其它主要的牙齒都被堅固的安置。因此，特別的學習需求和困難是可預期的。在同一個班級內，學生的學習程度變得很不一樣，大部份自信心和班級的歸屬感必須靠一年級時所立下的根基。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 3 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh3.googleusercontent.com/k_ld9ltMI3gCZMl5kM8bx2pR1gWKru0VWcVRtLVkCKBjfy5Da1m25QjVSZbWHs77x-Jhqmw4QsORAV53iBw4M5pynvLUXxj7W0Qn_mQQjn8tDoRXYM81iuZdkiBQRUoqaydl1OSF5n9-EQJRWkHAOCtt-yBj96Wi927M624Pkn5GxDY=w1280" alt="三年級">
-            </div>
-            <div class="development-card-content">
-                <h3>三年級</h3>
-                <p><strong>發展狀態：</strong>情感中的意志</p>
-                <p><strong>發展任務：</strong>入世</p>
-                <div class="development-card-description">
-                    <p>在三年級，學童進入生命中的第十年。這時期的孩子生理、心理、認知都產生很顯著的改變，這些變化被認為是第九年/第十年的門檻，早一點可能在8.5歲，晚一點在9.5歲開始會持續六個月到一年之久。這時期的孩子發展出明確而平衡的步伐、口腔中說話的聲音增大、發音也更直接清晰、孩子的身體架構也明顯更強了。心臟增大而能容納更多血液、呼吸與脈搏的比值也被確立：約是一次呼吸四次脈搏。生長發育開始比較集中在四肢與新陳代謝系統，身體軀幹的寬幅也大了。在一些孩子身上會看到顯著的發展面向，包括：厭倦、胃痛、頭痛、噁心、頭暈、食慾變化、哮喘、濕疹和混亂的睡眠模式等。</p><p>史代納提到有關孩子情感生命的蛻變。三年級的孩子會經歷到在覺知世界時所呈現的以及他/她的情感中所顯現的二元對立性，這時候隨著孩子們的主觀性增長，孩子也同時經驗到更加有力的客觀感受，主觀的內在經驗和客觀世界實體在孩子的心靈中爭吵。問題、懷疑、孤獨和批評傾向的萌芽，逐漸凸顯在孩子心理景象中。無論發展快慢，對大部分的孩子而言，自我醒覺很重要的一步在這一年發生，從區別自己與周遭人物、分辨內在和外在世界，孩子經驗到醒覺。喪失以前與世界統整的失落感和以新眼光看待世界的訝異，這兩種對立的情緒使孩子感到混淆和不安。這些都將表現在孩子的氣質與性格行為上。</p><p>在這個不確定的時期中，許多古老故事的創世圖像，它的律法和引導，撫慰了孩子內在的安全感。而農耕、建築等主課程則幫助他們適應環境和他們的新關係。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 4 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh3.googleusercontent.com/3GPGkJRXTk23ckUs6XsBwVu2Y2CFosoUppbJspxmA0vsmHjeU1fBRY1KzFIKlIZnuExyYKjn-HZmTtSkt-zd2i01UPUSctkB56Jq-MS9PSxyCv7TUSva659Ikrfd9kip8elXNXKXgMWZIeBwdTjD0yAys1dcUpLF7pZLjC9hO2da2fM=w1280" alt="四年級">
-            </div>
-            <div class="development-card-content">
-                <h3>四年級</h3>
-                <p><strong>發展狀態：</strong>情感中的情感</p>
-                <p><strong>發展任務：</strong>分裂</p>
-                <div class="development-card-description">
-                    <p>在生命的第十年，孩子完成發展中重要的一步。童年初期已告一段落，孩子漸漸從自我覺知的角度來看待世界，此時教師的權威也會面臨質疑和考驗。然而，華德福教育三年級的課程設計便是為了陪伴孩子經歷這個階段為目標，四年級則是更確認、被鼓舞地完成這一階段。回顧三年級的課程，我們帶領孩子初生的自我以真實的身體意志透過農耕與建築進入外在世界，也從創世故事預備孩子經驗了神話進入歷史的轉折，所有主課程科目背後都是為了要讓孩子遇見文明世界的歷程，正如我們人類意識發展的過程。</p><p>四年級的孩子開始進入「童年的心臟」，此時，孩子們的內在自我動力帶領著他們去連結呼吸與血液循環和諧的關係，這個新狀態的自信表現在整個人充滿活力與對世界的好奇及學習興致上。在十到十一歲（九到十足歲）的這段時間，也正值生命第二個七年與「導師時期」の中間點，這時的他們已完全從幼兒期轉換準備進入下一階段，但到青春期的轉變則尚未開始。為了呼應學生的活力，在課程整體節奏的安排上，就必須引導他們進入教室裡充沛能量的學習環境。孩子需要接受挑戰，並且擴張他們獨立工作的可能性，「工作、工作，做很多工作」是四年級最好的座右銘。</p><p>學習上進入另一個開始，而這也是自然科學的開端：從外觀型態的觀察開始做現象研究。研究人類行為與動物王國的關係及對在地環境深入認識，並學習繪製鳥瞰地圖的能力。這一年老師和孩子們相處的目標是去遇見孩子對具體知識領域的興趣，並經由想像力呈現課程也提供孩子們更獨立的工作機會，從中找到自己與學習內容、自己與同伴、自己與老師的新關係。主課程的故事增加了許多複雜的人性矛盾、掙扎的情節，甚至也體現了各式各樣人的樣貌，呼應孩子們此階段更明確的氣質分化與小團體的人際互動模式（例如：西遊記中每個主角的性格在面對同一情境不同的處理方式、北歐神話中人物的多樣性與具象的刻畫黑暗與邪惡），從這些故事中，讓孩子們感受什麼是「個別的惡」而什麼是「整體的善」，孩子們也必須從中建立他們對生態環境、社會環境和地理環境的感覺！</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 5 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh5.googleusercontent.com/vHuzI-foEuQ4dI4kLCIOEhRA8y5mVGGoKpcO-17yd8ulIBqh5cg6vaVo9nNI3QPWsPaC0AwLflgr3yqHjOQSqa_2ys8emwJRuXKdyvIFayhYRrKlmsuTPZOZYW_4YdGISRKkafChN5M4UocQ7joBXaqVkRLM-nTL8YlxWUYmtIAwgtw=w1280" alt="五年級">
-            </div>
-            <div class="development-card-content">
-                <h3>五年級</h3>
-                <p><strong>發展狀態：</strong>情感中的情感</p>
-                <p><strong>發展任務：</strong>和諧</p>
-                <div class="development-card-description">
-                    <p>五年級的孩子發展出「我」和「世界」的不同，他們個別的「意志」元素也開始增長，對自我的醒覺開始強化，也開始社會化；雖然各自的「自我」羽翼初成，但一個有力量的團體動力會在班上浮現。</p><p>在認知上，孩子更能夠以一個真實而合理的態度，去了解各種問題和現象。雖然，概念的理解和形塑，開始比較不依賴各自的影像與思考圖像，而比較依靠理解清楚、實際事務、非感官概念等能力的發展；但是，思考過程的圖像性元素仍在孩子的意識中佔有很重要的地位。孩子在這一年可以更有意識地運用其智識能力，他們往往帶來一個新的超然想法，並伴隨著評判性的觀點。</p><p>五年級孩子的年紀是一個心花盛開的時期。孩子經驗到身高的增長，在其團體內持續進行肢體的操練。音樂上，孩子開始有能力精通一項樂器。在算數的基本技巧上，語文強的學童基於對數理基本的規則、過程及結構的自信而展現出獨立的創造性。在智識與道德上，孩子已準備好迎接新的挑戰；從這個年紀開始，掌握到個人責任的基本概念與從「合理」的角度去了解「是非」的能力。</p><p>不過以上所言的美好，在五年級結束，進到六年級時，孩子會再次經驗和發現到和諧的喪失。而這就是五年級孩子整體的內在發展與意識進化狀態。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 6 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh4.googleusercontent.com/gldGBGgVhLb_K9SO0ZgVQ44NocZPjS12vyq1BNXHxRZq2VqGM6LqeYok3MwfCordnYeSp8vnnsQxXesZSwzwaQlu5spihg93wvAEOWysvLoRyoQw_JSezo29QZk0V2A4AcJ_ZnpxpV2PagCb5X1KZbQH3KsYvQGy5xQO9s2qCiE1_7E=w1280" alt="六年級">
-            </div>
-            <div class="development-card-content">
-                <h3>六年級</h3>
-                <p><strong>發展狀態：</strong>情感中的情感</p>
-                <p><strong>發展任務：</strong>規矩</p>
-                <div class="development-card-description">
-                    <p>因為青春期的叩門，身體又要啟動再一波的變動，此時期的孩子，開始出現進入前青春期的特徵，孩子的成長開始表現在骨架上，孩子的手腳開始拉長，四肢明顯增長，並有一些笨拙、不靈活的動作傾向。此時因為肌肉與骨架的發展變動，使得身體原本習慣的重心位 置逐漸位移，使得孩子進一個不自在的適應過程，常會覺得行立坐臥都不對勁。</p><p>十二歲大的身體從骨架上經驗重力的強度，生理上的變化伴隨著孩子首次經驗到思想上的因果關係；然而心理上，孩子進入一個特稱為「被調包的醜嬰孩」時期，此時身體外觀的急劇變化讓他們親眼見證自己童年的逝去並面對個體誕生的劇痛。</p><p>而由於他們新的思考能力浮現，孩子可被引導瞭解他們在世界上工作的因果關係。孩子的醒覺須被導向他們將像成人一般生活、工作的世界。孩子在學校的工作需要受到挑戰並能夠接受高標準的要求。</p><p>此時期的孩子，在內在意識發展上，從五年級的希臘時代之和諧，到六年級開始進入羅馬時代的特徵，需要如羅馬時代強而有力的法律、領導力與秩序感。欲帶領這個年紀的孩子之教師，必須擁有如同統治羅馬士兵的君主之權威，否則極可能成為羅馬士兵手下的俘虜。老師的目標是和孩子朝著外在世界的走向一起工作。孩子初顯的批判能力必須被導向 以科學的觀點去觀察自然世界，而他們對社會關係的興趣漸增，也要給他們一些機會對班級社群負責。這些課題的目的是塑造同學間以及他們和老師之間的新關係。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 7 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh3.googleusercontent.com/celw4ur4sAlVyQgMeVwrA5X_vgNxvaOqwzBbos0YaaDmZNbyA8uxe77b2IR90-aL3MmgQ6e6QxNmR_xZNqEQRj49Z9LeUg7jf4V9qV99zGY6eFHOVz_uLb0cPWE4Yjw0hPS1YwHVtOn5BY9vU5Rc9B76wJorzeMgf8Eae55oXd5mlQ=w1280" alt="七年級">
-            </div>
-            <div class="development-card-content">
-                <h3>七年級</h3>
-                <p><strong>發展狀態：</strong>情感中的思考</p>
-                <p><strong>發展任務：</strong>探索</p>
-                <div class="development-card-description">
-                    <p>孩子到了13歲時，成為所謂的青少年(teenager)，通常有著兩股力量的作用：一為「對世上現象及相關知識的渴求」，二則為「初萌發的自我反思能力」。</p><p>孩子身體上的成長絕對快于心理上變化，因而帶來了性別的認同與壓力，且也許會帶來一些孤獨的個人經驗，致使孩子處於焦慮與敏感的情緒當中。同時，內在湧出的對於世界探索的渴望，會與這樣的情緒產生了矛盾或抗衡，也會讓男孩與女孩在這時面對的挑戰明顯不同。</p><p>因此，課程的焦點會置於孩子對外在世界的探索與內在的旅程。我們將提供青少年許多新觀點，讓他們的關注力導向整個世界。教師將逐漸鼓勵孩子做出自己的判斷，引導他們在社群中負起社會責任；同時，體驗到自己是世界公民的一份子，也是負有社會責任的個體。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 8 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh6.googleusercontent.com/ZRWml8ZmNVTVIUhhAbk-v5OTiDd1-lTRfi5QK7mccksHIl_V7q8qGgafI4AFIWGK4K0ZioXf-1Msjxb8K0jFs1UtL04V8oFlY36PDUhK67n7FHu1eSJqbF3oMw31sRUR8Stazdi9AzD4bengVnypucoq69Md2qrKT-tuG3fNwelsB70=w1280" alt="八年級">
-            </div>
-            <div class="development-card-content">
-                <h3>八年級</h3>
-                <p><strong>發展狀態：</strong>情感中的思考</p>
-                <p><strong>發展任務：</strong>革命</p>
-                <div class="development-card-description">
-                    <p>14歲的孩子，身體與心理都持續地變化，世界與國際觀逐漸走入孩子心中，觀念世界的一切對於此時的孩子產生意義。14歲的時的身體機能也漸趨明顯，對於原先以接受的規定、結構會開始仔細地反覆檢查，甚至嘗試挑戰之。</p><p>要如何陪伴孩子度過個體化的階段？要如何不壓抑卻也不被情緒淹沒地陪伴孩子經歷？如何陪伴孩子經歷內在意志、情感與思考的誕生、解放、開啟？──這些皆是家長與教師在此時的巨大挑戰。</p><p>在這個階段的孩子，可以思考過去，也可以感知未來，並進入自己的節奏性之中。在這個年級的最後階段，孩子將會取得全新的角色模範，並找到全新的權威來源。同儕的影響力在此時將大大增加，孩子自己會嘗試與同齡者逐漸趨同。我們必須延伸孩子對全人類、全世界的連結意識與責任，同時讓孩子將經驗轉化成自己的原創性思考。因此，八年級時，我們將要求孩子選擇一個對於自己有特殊意義的主題，讓孩子學習長時間地獨立工作，整合過去所學，再於期末時當眾發表，此即八年級的階段任務：個人專題報告。</p>
-                </div>
-            </div>
-        </div>
-        <!-- Grade 9 -->
-        <div class="development-card">
-            <div class="development-card-img">
-                <img src="https://lh3.googleusercontent.com/DubvZsHhhc4VYChPWDt21sDo61zMWuivzhML9mXlRdgIzUZxWwzkPw29lLu_P06AAlKsXLmGMAQ2Wo4FDIHBI9Bb8K06jR6zo_UTaLwuEM1-qorEvnbKPUNyUbF0K82c8zwIc30rbir4UqTOFYAg_5mxFFDIeIBjOSL0iZACGk2ISP4=w1280" alt="九年級">
-            </div>
-            <div class="development-card-content">
-                <h3>九年級</h3>
-                <p><strong>發展狀態：</strong>情感中的思考</p>
-                <p><strong>發展任務：</strong>蟄伏</p>
-                <div class="development-card-description">
-                    <p>九年級的孩子會以激烈的方式追求獨立，他們將不斷地遠離那個過往熟悉、安全、確定的世界，以及他們曾經習得的一切。孩子需要重新學習一切關於行走、說話與思考的事物，以保持內在的平衡。</p><p>另一方面，孩子的生命終將有巨大意志力預備爆發，這個階段孩子的思考能力與邏輯能力急速覺醒，使他們必須讓自我與他人保持距離。他們會熱切地尋求知性、熱情與慾望之間的平衡。</p><p>九年級的孩子會尋求並期待大人給予的清楚解釋、感同身受、理解與安慰，以及大人們更為開放的態度與幽默感，以積累足夠的能量醞釀出面對生命中遭遇的衝突或困難。</p><p>由於此時期的知性與理性的深度更為深化，將安排更多專業教師負責個專業科目的教學，深入不同領域並開展孩子專長。由於學科難度皆會加深，各類的活動也會變得更繁多，孩子應開始學習配置自己的時間運用，並決定多樣活動的優先順序。我們期望透過學校的課程，讓孩子找到自我生命的熱情，找到自己的天命，肯定與尊重自己。在這個前提下，我們會帶領孩子增加與社會的互動，進行公益服務。</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="student-development-section" class="container subsection" style="margin-top: 60px;" data-src="content/student-development-content.html">
+    <div class="container" id="student-development-content-placeholder" v-html="loadedContent['student-development-section']"></div>
 </div>
-</section>
 <!-- 教師團隊 -->
 <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
 <div class="container">
@@ -806,7 +330,7 @@
 </div>
 </footer>
 
-<script src="script.js"></script>
+
 <!-- Modal -->
 <div id="development-modal" class="modal">
     <div class="modal-content">
@@ -816,5 +340,8 @@
         </div>
     </div>
 </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="app.js"></script>
 </body>
 </html>
