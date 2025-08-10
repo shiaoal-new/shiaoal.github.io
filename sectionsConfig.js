@@ -5,7 +5,6 @@ import { AdmissionSection } from './AdmissionSection.js';
 import { FaqSection } from './FaqSection.js';
 import { CurriculumSection } from './CurriculumSection.js';
 import { TeachersSection } from './TeachersSection.js';
-import { ChildObservationSection } from './ChildObservationSection.js';
 import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
 
 export const sections = [
@@ -76,16 +75,6 @@ export const sections = [
     title: '教師團隊',
     path: '#teachers',
     backgroundImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
-    isSectionTag: true,
-    className: 'section'
-  },
-  {
-    id: 'child-observation',
-    component: ChildObservationSection,
-    componentName: 'ChildObservationSection',
-    title: '兒童觀察',
-    path: '#child-observation',
-    backgroundImage: 'https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     isSectionTag: true,
     className: 'section'
   },
