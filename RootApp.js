@@ -14,6 +14,7 @@ import { AdmissionSection } from './AdmissionSection.js';
 import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
 import { NavBar } from './NavBar.js';
 import { HomeSection } from './HomeSection.js';
+import { homeData } from './homeData.js';
 
 export const RootApp = {
   components: {
@@ -124,7 +125,8 @@ export const RootApp = {
       faqData, // Expose FAQ data to the template
       newsData, // Expose News data to the template
       // admissionData, // Expose Admission data to the template
-      curriculumData // Expose Curriculum data to the template
+      curriculumData, // Expose Curriculum data to the template
+      homeData
     };
   },
   template: `
@@ -153,7 +155,7 @@ export const RootApp = {
     <i class="fas fa-chevron-down"></i>
     </div>
     </section>
-    <home-section />
+    <home-section :videos="homeData" />
     <!-- 認識同心 -->
     <section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
     <about-section />
