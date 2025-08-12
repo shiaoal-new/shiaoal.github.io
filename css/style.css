@@ -22,7 +22,7 @@
             --bg-color: #f5fbf5;
             --header-bg: url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             --section-bg: url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            --font-family: 'Georgia', serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         /* 風格2: Material Design - 卡片式現代風 */
@@ -33,7 +33,7 @@
             --bg-color: #fafafa;
             --header-bg: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             --section-bg: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
-            --font-family: 'Roboto', sans-serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         /* 風格3: Neumorphism - 新擬態風 */
@@ -44,7 +44,7 @@
             --bg-color: #ecf0f1;
             --header-bg: url('https://images.unsplash.com/photo-1595379239022-37d434741532?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             --section-bg: linear-gradient(145deg, #ecf0f1, #bdc3c7);
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         /* 風格4: Dark Mode - 深色主題風 */
@@ -55,7 +55,7 @@
             --bg-color: #121212;
             --header-bg: url('https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             --section-bg: linear-gradient(to bottom, #121212, #1e1e1e);
-            --font-family: 'Arial', sans-serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         /* 風格5: Minimalist - 極簡主義風 */
@@ -66,7 +66,7 @@
             --bg-color: #fff;
             --header-bg: url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             --section-bg: #ffffff;
-            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         /* 風格6: Water Color - 水彩風 */
@@ -77,7 +77,7 @@
             --bg-color: #fffbe9; /* Light, warm cream */
             --header-bg: url('Water Color/hero-bg.png');
             --section-bg: url('https://images.unsplash.com/photo-1588421399334-88c6d03b24de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            --font-family: 'Garamond', serif;
+            --font-family: 'Noto Serif TC', serif;
         }
 
         * {
@@ -87,7 +87,7 @@
         }
 
         body {
-            font-family: var(--font-family);
+            font-family: 'Noto Serif TC', serif;
             color: var(--text-color);
             background-color: var(--bg-color);
             line-height: 1.6;
@@ -1107,4 +1107,69 @@
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+
+/* Responsive Curriculum Table Styles */
+.curriculum-responsive {
+  margin-top: 40px;
+}
+
+.learning-area-card, .sub-item-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.learning-area-header, .sub-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background var(--transition-speed);
+}
+
+.learning-area-header:hover, .sub-item-header:hover {
+  background: #4a7c59; /* Slightly darker primary color */
+}
+
+.learning-area-header h3 {
+  font-size: 1.4rem;
+}
+
+.sub-item-card {
+  background: var(--secondary-color);
+  border-radius: var(--border-radius);
+  box-shadow: none; /* Remove shadow for nested look */
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.sub-item-header {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 10px 15px;
+}
+
+.sub-item-header:hover {
+  background: #e0e0e0; /* Lighter hover for sub-item */
+}
+
+.sub-item-header h4 {
+  font-size: 1.1rem;
+}
+
+.grade-content {
+  padding: 10px 20px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+
+.grade-content h5 {
+  font-size: 1rem;
 }

@@ -15,6 +15,7 @@ import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
 import { NavBar } from './NavBar.js';
 import { HomeSection } from './HomeSection.js';
 import { homeData } from './homeData.js';
+import { curriculumTableData } from './curriculumTableData.js';
 
 export const RootApp = {
   components: {
@@ -125,7 +126,8 @@ export const RootApp = {
       newsData, // Expose News data to the template
       // admissionData, // Expose Admission data to the template
       curriculumData, // Expose Curriculum data to the template
-      homeData
+      homeData,
+      curriculumTableData
     };
   },
   template: `
@@ -170,7 +172,7 @@ export const RootApp = {
     </section>
     <!-- 課程安排 -->
     <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <curriculum-section :curriculumData="curriculumData" />
+    <curriculum-section :curriculumData="curriculumData" :curriculumTableData="curriculumTableData" />
     </section>
 
     <!-- 學生發展圖像 -->
