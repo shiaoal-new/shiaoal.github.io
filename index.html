@@ -13,40 +13,6 @@
 <link href="css/style.css" rel="stylesheet"/></head>
 <body class="theme-isabelle">
 <div id="app">
-<!-- 導航欄 -->
-<nav-bar :smoothScroll="smoothScroll" />
-<!-- 風格切換器 -->
-<div class="theme-switcher">
-<h3>選擇設計風格</h3>
-<div class="theme-options">
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'isabelle'}]" @click="switchTheme('isabelle')" data-theme="isabelle">Isabelle Simler</button>
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'material'}]" @click="switchTheme('material')" data-theme="material">Material Design</button>
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'neumorphism'}]" @click="switchTheme('neumorphism')" data-theme="neumorphism">Neumorphism</button>
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'dark'}]" @click="switchTheme('dark')" data-theme="dark">Dark Mode</button>
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'minimalist'}]" @click="switchTheme('minimalist')" data-theme="minimalist">Minimalist</button>
-<button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'watercolor'}]" @click="switchTheme('watercolor')" data-theme="watercolor">Water Color</button>
-</div>
-</div>
-<!-- 主橫幅 -->
-<section class="hero" id="home" data-parallax="scroll">
-<div class="hero-content text-center">
-<h1>同心華德福實驗教育機構</h1>
-<p class="lead">您是否也在找尋教育孩子的不同路徑？ 您想改變嗎？ 您願意更勇敢的面對父母的角色嗎？ 您知道是因為孩子，我們才有機會成為更好的大人嗎？ 邀請您，成為同心的夥伴！</p>
-<a class="btn btn-primary btn-lg" href="#about">認識我們</a>
-<ul>
-    <li><b>同心暑假 萬物生長</b></li>
-    <li><b>關於同心</b></li>
-    <li><b>申請入學</b></li>
-    <li><b>課程大綱</b></li>
-    <li><b>常見問答</b></li>
-    <li><b>最新消息</b></li>
-    <li><b>行事曆</b></li>
-</ul>
-</div>
-<div class="scroll-indicator">
-<i class="fas fa-chevron-down"></i>
-</div>
-</section>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
