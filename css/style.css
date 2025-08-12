@@ -813,6 +813,52 @@
         }
     
 /* 學生發展圖像 */
+
+/* 課程精神內涵卡片樣式 */
+.curriculum-spirit ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.curriculum-spirit ul li {
+    background: var(--bg-color); /* Use background color from theme */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    transition: all var(--transition-speed) ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensure cards in a row have equal height */
+}
+
+.curriculum-spirit ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.curriculum-spirit ul li b {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.curriculum-spirit ul li p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+
+/* Adjust section title margin for curriculum spirit */
+.curriculum-spirit .section-title {
+    margin-bottom: 20px; /* Reduce space below title */
+}
+
 .development-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
