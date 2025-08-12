@@ -2,16 +2,19 @@ export const homeData = [
   {
     title: '同心華德福教育8分鐘精華',
     description: '您是否也在找尋教育孩子的不同路徑？ 您想改變嗎？ 您願意更勇敢的面對父母的角色嗎？ 您知道是因為孩子，我們才有機會成為更好的大人嗎？ 邀請您，成為同心的夥伴！',
-    videoId: 'oermgcwIkC8'
+    videoId: 'oermgcwIkC8',
+    icon: 'fas fa-graduation-cap'
   },
   {
     title: '同心戲劇課程 紀錄短片',
     description: '六年級戲劇公演像是見證孩子成長的一場儀式，在預備過程中真實去看見彼此的短處和亮點，藉由一起做道具發揮想像力、一起排練凝聚向心力，拼出大家對這齣戲的想像。 當前方有共同的大目標，彼此從原先各自關注不同事物到被戲劇凝聚起來，一起在戲劇中生活、學習，一起希望能做的更好，戲劇公演最主要的意義，是建立「個人自信」、「彼此真實的關係」和「珍貴的同窗回憶」。',
-    videoId: 'CXcjtafDnWc'
+    videoId: 'CXcjtafDnWc',
+    icon: 'fas fa-theater-masks'
   },
   {
     title: '中學是一場自我革命',
     description: '中學是開始更進入探索自我的年紀，我們該如何引導他認識自己、挑戰自己？ 讓他明白，「這就是對我自己的一場革命！」 我們又如何陪伴他投入社會，在參與中摸索自我的定位，變成一個有溫度、能永遠「繼續前進的那個我」？ 這些答案，在華德福中學教育的辦學過程中；點點滴滴，期待與您分享與相遇。',
-    videoId: '-kLpchWvdh4'
+    videoId: '-kLpchWvdh4',
+    icon: 'fas fa-brain'
   }
 ];

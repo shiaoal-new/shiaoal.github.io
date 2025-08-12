@@ -7,7 +7,7 @@ import { curriculumData } from './curriculumData.js';
 import { TeachersSection } from './TeachersSection.js';
 import { ChildObservationSection } from './ChildObservationSection.js';
 import { FooterSection } from './FooterSection.js';
-import { AboutSection } from './AboutSection.js';
+
 import { NewsSection } from './NewsSection.js';
 import { newsData } from './newsData.js';
 import { AdmissionSection } from './AdmissionSection.js';
@@ -23,7 +23,6 @@ export const RootApp = {
     TeachersSection,
     ChildObservationSection,
     FooterSection,
-    AboutSection,
     NewsSection,
     AdmissionSection,
     StudentDevelopmentSection,
@@ -156,10 +155,7 @@ export const RootApp = {
     </div>
     </section>
     <home-section :videos="homeData" />
-    <!-- 認識同心 -->
-    <section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <about-section />
-    </section>
+    
     <!-- 最新消息 -->
     <section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
     <news-section :newsItems="newsData" />
