@@ -5,7 +5,7 @@ import { FaqSection, faqData } from './FaqSection.js';
 import { CurriculumSection } from './CurriculumSection.js';
 import { curriculumData } from './curriculumData.js';
 import { TeachersSection } from './TeachersSection.js';
-import { ChildObservationSection } from './ChildObservationSection.js';
+
 import { FooterSection } from './FooterSection.js';
 
 import { NewsSection } from './NewsSection.js';
@@ -22,7 +22,6 @@ export const RootApp = {
     FaqSection,
     CurriculumSection,
     TeachersSection,
-    ChildObservationSection,
     FooterSection,
     NewsSection,
     AdmissionSection,
@@ -179,10 +178,7 @@ export const RootApp = {
     <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
     <teachers-section />
     </section>
-    <!-- 兒童觀察 -->
-    <section class="section" id="child-observation" style="background-image: url('https://images.unsplash.com/photo-1523050620-735220702903?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <child-observation-section />
-    </section>
+    
     <!-- 頁腳 -->
     <footer id="footer">
     <footer-section />
