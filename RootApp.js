@@ -3,11 +3,13 @@ const { ref, onMounted, onUnmounted } = Vue;
 // Import all components
 import { FaqSection, faqData } from './FaqSection.js';
 import { CurriculumSection } from './CurriculumSection.js';
+import { curriculumData } from './curriculumData.js';
 import { TeachersSection } from './TeachersSection.js';
 import { ChildObservationSection } from './ChildObservationSection.js';
 import { FooterSection } from './FooterSection.js';
 import { AboutSection } from './AboutSection.js';
 import { NewsSection } from './NewsSection.js';
+import { newsData } from './newsData.js';
 import { AdmissionSection } from './AdmissionSection.js';
 import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
 import { NavBar } from './NavBar.js';
@@ -117,7 +119,10 @@ export const RootApp = {
       activeTheme,
       switchTheme,
       smoothScroll,
-      faqData // Expose FAQ data to the template
+      faqData, // Expose FAQ data to the template
+      newsData, // Expose News data to the template
+      // admissionData, // Expose Admission data to the template
+      curriculumData // Expose Curriculum data to the template
     };
   },
   template: `
@@ -152,11 +157,11 @@ export const RootApp = {
     </section>
     <!-- 最新消息 -->
     <section class="section py-5" id="news" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <news-section />
+    <news-section :newsItems="newsData" />
     </section>
     <!-- 申請入學 -->
     <section class="section py-5" id="admission" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <admission-section />
+    <admission-section/>
     </section>
     <!-- 常見問題 -->
     <section class="section py-5" id="faq" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
@@ -164,7 +169,7 @@ export const RootApp = {
     </section>
     <!-- 課程安排 -->
     <section class="section" id="curriculum" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <curriculum-section />
+    <curriculum-section :curriculumData="curriculumData" />
     </section>
 
     <!-- 學生發展圖像 -->
