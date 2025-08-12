@@ -143,6 +143,16 @@ export const RootApp = {
     </div>
     </div>
     <!-- 主橫幅 -->
+    <section class="hero" id="home" data-parallax="scroll">
+    <div class="hero-content text-center">
+    <h1>同心華德福實驗教育機構</h1>
+    <p class="lead">從幼兒園到高中，您是否也在找尋教育孩子們的不同路徑？邀請您，成為同心的夥伴！</p>
+    <a class="btn btn-primary btn-lg" href="#about">認識我們</a>
+    </div>
+    <div class="scroll-indicator">
+    <i class="fas fa-chevron-down"></i>
+    </div>
+    </section>
     <home-section />
     <!-- 認識同心 -->
     <section class="section py-5" id="about" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
