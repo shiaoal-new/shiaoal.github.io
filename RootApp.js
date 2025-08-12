@@ -11,7 +11,7 @@ import { FooterSection } from './FooterSection.js';
 import { NewsSection } from './NewsSection.js';
 import { newsData } from './newsData.js';
 import { AdmissionSection } from './AdmissionSection.js';
-import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
+
 import { NavBar } from './NavBar.js';
 import { HomeSection } from './HomeSection.js';
 import { homeData } from './homeData.js';
@@ -26,7 +26,6 @@ export const RootApp = {
     FooterSection,
     NewsSection,
     AdmissionSection,
-    StudentDevelopmentSection,
     NavBar,
     HomeSection
   },
@@ -175,10 +174,7 @@ export const RootApp = {
     <curriculum-section :curriculumData="curriculumData" :curriculumTableData="curriculumTableData" />
     </section>
 
-    <!-- 學生發展圖像 -->
-    <div id="student-development-section" class="container subsection" style="margin-top: 60px;">
-        <student-development-section />
-    </div>
+    
     <!-- 教師團隊 -->
     <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
     <teachers-section />
