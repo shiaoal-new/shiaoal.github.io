@@ -1173,3 +1173,9 @@
 .grade-content h5 {
   font-size: 1rem;
 }
+
+.learning-area-content,
+.sub-item-content {
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out;
+}
