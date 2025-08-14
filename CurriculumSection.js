@@ -1,9 +1,16 @@
 import { CurriculumTableResponsive } from './CurriculumTableResponsive.js';
 import { StudentDevelopmentSection } from './StudentDevelopmentSection.js';
+import { TimetableSection } from './TimetableSection.js';
+import { timetableData } from './timetableData.js';
 
 export const CurriculumSection = {
-  components: { CurriculumTableResponsive, StudentDevelopmentSection },
+  components: { CurriculumTableResponsive, StudentDevelopmentSection, TimetableSection },
   props: ['curriculumData', 'curriculumTableData'],
+  data() {
+    return {
+      timetableData: timetableData
+    }
+  },
   template: `
     <div class="container">
       <div class="section-title fade-in">
@@ -16,6 +23,8 @@ export const CurriculumSection = {
           <student-development-section />
       </div>
       <div class="curriculum-spirit fade-in" v-html="curriculumData.curriculumSpirit"></div>
+
+      <timetable-section :timetableData="timetableData" />
     </div>
   `
 };

@@ -12,7 +12,8 @@ export const NavBar = {
         text: '課程安排',
         dropdown: [
           { text: '課程安排', href: '#curriculum' },
-          { text: '學生發展圖像', href: '#student-development-section' }
+          { text: '學生發展圖像', href: '#student-development-section' },
+          { text: '全校課表', href: '#timetable-section' }
         ]
       },
       { text: '教師團隊', href: '#teachers' }
