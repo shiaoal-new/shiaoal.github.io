@@ -5,7 +5,7 @@ export const NavBar = {
   setup(props) {
     const menuItems = ref([
       { text: '首頁', href: '#home' },
-      { text: '最新消息', href: '#news' },
+      { text: '消息與公告', href: '#news' },
       { text: '申請入學', href: '#admission' },
       { text: '常見問題', href: '#faq' },
       {
