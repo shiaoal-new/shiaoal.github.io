@@ -2,12 +2,25 @@ export const TimetableSection = {
   props: ['timetableData'],
   data() {
     return {
-      activeGrade: this.timetableData[0]?.grade || ''
+      activeGrade: this.timetableData[0]?.grade || '',
+      activeDay: '一',
+      weekdays: ['一', '二', '三', '四', '五']
     };
   },
   methods: {
     handleGradeChange(event) {
       this.activeGrade = event.target.value;
+    },
+    setActiveDay(day) {
+      this.activeDay = day;
+    }
+  },
+  computed: {
+    activeGradeData() {
+      return this.timetableData.find(g => g.grade === this.activeGrade);
+    },
+    activeDayIndex() {
+      return this.weekdays.indexOf(this.activeDay);
     }
   },
   template: `
@@ -26,26 +39,34 @@ export const TimetableSection = {
         </select>
       </div>
 
+      <!-- Day Tabs -->
+      <ul class="nav nav-tabs justify-content-center fade-in">
+        <li class="nav-item" v-for="day in weekdays" :key="day">
+          <a class="nav-link" :class="{ active: activeDay === day }" @click.prevent="setActiveDay(day)" href="#">
+            星期{{ day }}
+          </a>
+        </li>
+      </ul>
+
       <!-- Timetable Content -->
       <div class="timetable-content fade-in">
-        <div v-for="grade in timetableData" :key="grade.grade" v-show="activeGrade === grade.grade">
-          <div class="table-responsive">
-            <table class="table table-striped table-hover">
-              <thead class="thead-dark">
-                <tr>
-                  <th v-for="header in grade.headers" :key="header">{{ header }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="row in grade.schedule" :key="row.time">
-                  <td>{{ row.am_pm }}</td>
-                  <td>{{ row.time }}</td>
-                  <td>{{ row.duration }}</td>
-                  <td v-for="session in row.sessions" v-html="session"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>時間</th>
+                <th>分鐘</th>
+                <th>課程</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in activeGradeData.schedule" :key="row.time">
+                <td>{{ row.time }}</td>
+                <td>{{ row.duration }}</td>
+                <td v-html="row.sessions[activeDayIndex]"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

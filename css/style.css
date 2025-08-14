@@ -814,7 +814,10 @@
     
 
 
-/* Timetable Section Styles */
+
+
+
+
 .timetable-controls {
   display: flex;
   justify-content: center;
@@ -1319,4 +1322,5 @@
   color: var(--text-color);
   font-size: 1.2rem;
 }
+
 
