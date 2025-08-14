@@ -1,7 +1,7 @@
 const { ref } = Vue;
 
 export const NavBar = {
-  props: ['smoothScroll'],
+  props: ['smoothScroll', 'showThemeSwitcher', 'toggleThemeSwitcher'],
   setup(props) {
     const menuItems = ref([
       { text: '首頁', href: '#home' },
@@ -21,7 +21,9 @@ export const NavBar = {
 
     return {
       menuItems,
-      smoothScroll: props.smoothScroll // Pass smoothScroll from parent
+      smoothScroll: props.smoothScroll, // Pass smoothScroll from parent
+      showThemeSwitcher: props.showThemeSwitcher,
+      toggleThemeSwitcher: props.toggleThemeSwitcher
     };
   },
   template: `
@@ -41,6 +43,11 @@ export const NavBar = {
                   <a class="dropdown-item" :href="subItem.href" @click="smoothScroll">{{ subItem.text }}</a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <button @click="toggleThemeSwitcher" class="btn btn-link nav-link theme-toggle-button">
+                <i class="fas fa-cog"></i>
+              </button>
             </li>
           </ul>
         </div>

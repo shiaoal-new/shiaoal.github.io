@@ -1323,4 +1323,20 @@
   font-size: 1.2rem;
 }
 
+.theme-switcher.hidden {
+  display: none;
+}
 
+.theme-toggle-button {
+  background: none;
+  border: none;
+  color: var(--text-color); /* Use theme's text color */
+  font-size: 1.2rem; /* Adjust size as needed */
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color var(--transition-speed);
+}
+
+.theme-toggle-button:hover {
+  color: var(--primary-color); /* Use theme's primary color on hover */
+}

@@ -31,11 +31,19 @@ export const RootApp = {
   setup() {
     const activeTheme = ref('isabelle'); // Reactive state for the active theme
 
+    const showThemeSwitcher = ref(true); // Initially visible
+
+    const toggleThemeSwitcher = () => {
+      showThemeSwitcher.value = !showThemeSwitcher.value;
+    };
+
     const switchTheme = (theme) => {
       activeTheme.value = theme;
       document.body.classList.remove('theme-isabelle', 'theme-material', 'theme-neumorphism', 'theme-dark', 'theme-minimalist', 'theme-watercolor');
       document.body.classList.add(`theme-${theme}`);
     };
+
+    // Initial theme application
 
     const smoothScroll = async (event) => {
       event.preventDefault();
@@ -119,6 +127,8 @@ export const RootApp = {
     return {
       activeTheme,
       switchTheme,
+      showThemeSwitcher,
+      toggleThemeSwitcher,
       smoothScroll,
       faqData, // Expose FAQ data to the template
       newsData, // Expose News data to the template
@@ -130,9 +140,9 @@ export const RootApp = {
   },
   template: `
     <!-- 導航欄 -->
-    <nav-bar :smoothScroll="smoothScroll" />
+    <NavBar :smoothScroll="smoothScroll" :showThemeSwitcher="showThemeSwitcher" :toggleThemeSwitcher="toggleThemeSwitcher" />
     <!-- 風格切換器 -->
-    <div class="theme-switcher">
+    <div :class="['theme-switcher', { 'hidden': !showThemeSwitcher }]" >
     <h3>選擇設計風格</h3>
     <div class="theme-options">
     <button :class="['btn', 'btn-outline-primary', {'active': activeTheme === 'isabelle'}]" @click="switchTheme('isabelle')" data-theme="isabelle">Isabelle Simler</button>
