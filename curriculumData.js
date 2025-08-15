@@ -80,11 +80,58 @@ export const curriculumData = {
     <p>從一年級到九年級，孩子的成長與蛻變</p>
     </div>
 
-    <ul>
-        <li><b>呼應孩子成長階段需求:</b> 7-15歲階段，孩子的乙太生命力正在形塑。韻律、規律的呼與吸、重複的穩定性，都是課程裡重要的元素。面對國中小的不同階段，課程中意志、情感、思考的比重與次第也細微地調整。課程中鼓勵孩子發展四肢，以意志力及創造性活動積極入世。課程將以整體的角度入手，對應孩子當下意識的開展及學習基礎。</li>
-        <li><b>支持當代人類意識發展:</b> 意志力是人類進化可能的胚芽。當代人類面對到思考、理智與情感交織的總總分岔點。創造真實的情威基 礎與經驗，學習著客觀觀察，保持存有之心，這是人類意識發展重要的關卡。跨越9歲危機後的自然課程樣貌，協助孩子明白，人類將是透過四肢來創造與服務的神聖生命。在語言學習、在社會互動裡，我是如此的獨—無二，而我同時也是與外在所有的生命形式、人群及這個地球及星系宇宙相依相存。人類的呼吸相應著 宇宙運行的韻律。我的意識轉化，也和無邊的意識整合同步。</li>
-        <li><b>參與在地社群生活樣貌:</b> 同心的地方探索以目前校地所在文山區作為核心擴展，<a href="https://zh.wikipedia.org/wiki/%E6%99%AF%E7%BE%8E" target="_blank">景美</a>位於文山區西北部，<a href="https://zh.wikipedia.org/wiki/%E6%9C%A8%E6%9F%B5" target="_blank">木柵</a>位於文山區東南部，與<a href="https://zh.wikipedia.org/wiki/%E6%96%B0%E5%BA%97" target="_blank">新店</a>區形成三角的地理區，在新店溪與景美溪的歷史地貌裡，珍貴的人文地貌，也有各行各業課程的探索對象。往河邊走去，鄰近的仙跡岩，也是孩子接觸小山、樹木的空間，甚至延伸至深坑區老街。近來，親師也嘗試循著地方文史工作者的腳步，嘗試走讀文山區，發掘在地社群的生活樣貌與需求。</li>
-        <li><b>實踐具體藝術行動連結:</b> 藝術行動是全感官的投入，孩子們在繪畫、塑形（蜜蠟、泥塑）的課程裡，感受真實圖像、感知自己。孩子們在音樂、詩歌性的課程裡，分享內在的情感與展現律動，並藉此作為社會參與的活動。藝術行動的課程安排，除了是一天內重要的自我喚醒外，也時常扮演滋養的呼出，統合一天的吸收。藝術行動是親師生彼此感知生活節令、脈動的窗口，也是學習歷程裡，經驗美、經驗客觀、經驗直覺性、經驗活生生的創造、經驗重複有意義的練習的重要安排。</li>
-    </ul>
+    <div class="spirit-cards-container">
+        <div class="spirit-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="孩子成長發展" />
+                <div class="image-overlay">
+                    <i class="fas fa-seedling"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h4>呼應孩子成長階段需求</h4>
+                <p>7-15歲階段，孩子的乙太生命力正在形塑。韻律、規律的呼與吸、重複的穩定性，都是課程裡重要的元素。面對國中小的不同階段，課程中意志、情感、思考的比重與次第也細微地調整。課程中鼓勵孩子發展四肢，以意志力及創造性活動積極入世。課程將以整體的角度入手，對應孩子當下意識的開展及學習基礎。</p>
+            </div>
+        </div>
+
+        <div class="spirit-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="意識發展" />
+                <div class="image-overlay">
+                    <i class="fas fa-brain"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h4>支持當代人類意識發展</h4>
+                <p>意志力是人類進化可能的胚芽。當代人類面對到思考、理智與情感交織的總總分岔點。創造真實的情威基礎與經驗，學習著客觀觀察，保持存有之心，這是人類意識發展重要的關卡。跨越9歲危機後的自然課程樣貌，協助孩子明白，人類將是透過四肢來創造與服務的神聖生命。在語言學習、在社會互動裡，我是如此的獨一無二，而我同時也是與外在所有的生命形式、人群及這個地球及星系宇宙相依相存。人類的呼吸相應著宇宙運行的韻律。我的意識轉化，也和無邊的意識整合同步。</p>
+            </div>
+        </div>
+
+        <div class="spirit-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="社區探索" />
+                <div class="image-overlay">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h4>參與在地社群生活樣貌</h4>
+                <p>同心的地方探索以目前校地所在文山區作為核心擴展，<a href="https://zh.wikipedia.org/wiki/%E6%99%AF%E7%BE%8E" target="_blank">景美</a>位於文山區西北部，<a href="https://zh.wikipedia.org/wiki/%E6%9C%A8%E6%9F%B5" target="_blank">木柵</a>位於文山區東南部，與<a href="https://zh.wikipedia.org/wiki/%E6%96%B0%E5%BA%97" target="_blank">新店</a>區形成三角的地理區，在新店溪與景美溪的歷史地貌裡，珍貴的人文地貌，也有各行各業課程的探索對象。往河邊走去，鄰近的仙跡岩，也是孩子接觸小山、樹木的空間，甚至延伸至深坑區老街。近來，親師也嘗試循著地方文史工作者的腳步，嘗試走讀文山區，發掘在地社群的生活樣貌與需求。</p>
+            </div>
+        </div>
+
+        <div class="spirit-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="藝術創作" />
+                <div class="image-overlay">
+                    <i class="fas fa-palette"></i>
+                </div>
+            </div>
+            <div class="card-content">
+                <h4>實踐具體藝術行動連結</h4>
+                <p>藝術行動是全感官的投入，孩子們在繪畫、塑形（蜜蠟、泥塑）的課程裡，感受真實圖像、感知自己。孩子們在音樂、詩歌性的課程裡，分享內在的情感與展現律動，並藉此作為社會參與的活動。藝術行動的課程安排，除了是一天內重要的自我喚醒外，也時常扮演滋養的呼出，統合一天的吸收。藝術行動是親師生彼此感知生活節令、脈動的窗口，也是學習歷程裡，經驗美、經驗客觀、經驗直覺性、經驗活生生的創造、經驗重複有意義的練習的重要安排。</p>
+            </div>
+        </div>
+    </div>
   `
 };
