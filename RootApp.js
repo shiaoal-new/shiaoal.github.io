@@ -5,6 +5,7 @@ import { FaqSection, faqData } from './FaqSection.js';
 import { CurriculumSection } from './CurriculumSection.js';
 import { curriculumData } from './curriculumData.js';
 import { TeachersSection } from './TeachersSection.js';
+import { teachersData } from './teachersData.js';
 
 import { FooterSection } from './FooterSection.js';
 
@@ -172,7 +173,8 @@ export const RootApp = {
       // admissionData, // Expose Admission data to the template
       curriculumData, // Expose Curriculum data to the template
       homeData,
-      curriculumTableData
+      curriculumTableData,
+      teachersData // Expose Teachers data to the template
     };
   },
   template: `
@@ -223,7 +225,7 @@ export const RootApp = {
     
     <!-- 教師團隊 -->
     <section class="section" id="teachers" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-    <teachers-section />
+    <teachers-section :teachersData="teachersData" />
     </section>
     
     <!-- 頁腳 -->
