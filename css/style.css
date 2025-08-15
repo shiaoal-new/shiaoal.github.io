@@ -1340,3 +1340,15 @@
 .theme-toggle-button:hover {
   color: var(--primary-color); /* Use theme's primary color on hover */
 }
+/* Scrollspy active link styling */
+.navbar-nav .nav-link.active {
+    color: #007bff !important; /* Bootstrap primary blue */
+    font-weight: bold;
+}
+
+/* For dropdown items */
+.navbar-nav .dropdown-item.active {
+    color: #007bff !important;
+    font-weight: bold;
+    background-color: #e9ecef; /* Light gray background for active dropdown item */
+}

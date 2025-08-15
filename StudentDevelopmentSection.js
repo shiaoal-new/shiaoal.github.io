@@ -110,7 +110,7 @@ export const StudentDevelopmentSection = {
     };
   },
   template: `
-    <div class="section-title fade-in">
+    <div class="section-title fade-in" id="student-development-section">
       <h3>學生發展圖像</h3>
       <p>從一年級到九年級，孩子的成長與蛻變</p>
     </div>
