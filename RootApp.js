@@ -87,9 +87,44 @@ export const RootApp = {
         }
     };
 
+    // Manual scrollspy implementation
+    const handleScrollSpy = () => {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
+        
+        if (sections.length === 0 || navLinks.length === 0) return;
+        
+        const scrollPosition = window.scrollY + 150; // Offset for fixed navbar
+        
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        // Update active nav links
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    };
+
     onMounted(() => {
       // Initial theme application
       document.body.classList.add(`theme-${activeTheme.value}`);
+
+      // Initialize manual scrollspy after components are mounted
+      setTimeout(() => {
+        handleScrollSpy(); // Initial call to set active link
+      }, 500);
 
       // Intersection Observer for fade-in elements
       const fadeElements = document.querySelectorAll('.fade-in');
@@ -116,12 +151,14 @@ export const RootApp = {
       // Add scroll event listeners (keep existing ones)
       window.addEventListener('scroll', handleNavbarScroll);
       window.addEventListener('scroll', handleParallaxScroll);
+      window.addEventListener('scroll', handleScrollSpy);
     });
 
     onUnmounted(() => {
       // Clean up scroll event listeners when component is unmounted
       window.removeEventListener('scroll', handleNavbarScroll);
       window.removeEventListener('scroll', handleParallaxScroll);
+      window.removeEventListener('scroll', handleScrollSpy);
     });
 
     return {
